@@ -1,0 +1,240 @@
+body{
+	background:#f4f7f4;
+	position:relative;
+	overflow:hidden;
+}
+/*logo样式
+=====================================*/
+.logo{
+	width:100%;
+	height:80px;
+}
+.logo a{
+	display: block;
+	background:url(img/logo.png) center no-repeat;
+	width:415px;
+	height:80px;
+	margin:16px 0 0 31px;
+}
+/*主体
+=====================================*/
+.mian{
+	width:1000px;
+	margin:0 auto;
+	margin-top:35px;
+}
+/*左部分
+========================================*/
+.left-bj{
+	width:420px;
+	height:532px;
+	background:url(img/mg.jpg) center no-repeat;
+	float:left;
+}
+/*右部分
+========================================*/
+.right-x{
+	width:350px;
+	width:325px\9;
+	height:390px;
+	background:#fff;
+	float:right;
+	border-radius: 5px;
+	margin-top:43px;
+	padding:33px 0 0 25px;
+}
+/*标题样式
+=================*/
+.right-x .top{
+	width:300px;
+	height:40px;
+	border-bottom:2px solid #0082e4;
+}
+.right-x .top span{
+	font-size:20px;
+	color:#000;
+}
+/*用户名样式
+=================*/
+.user{
+	width:300px;
+	height:42px;
+	height:40px\9;
+	border:1px solid #dbdbdb;
+	border-radius:3px;
+	margin-top:15px;
+}
+.user span{
+	float:left;
+	display:block;
+	width:41px;
+	height:40px;
+	background:#efefef url(img/user.png) center center no-repeat;
+}
+.user input{
+	float:left;
+	width:257px;
+	width:240px\9;
+	line-height: 40px\9;
+	height:40px;
+	background:#fff;
+	padding-left:10px;
+	color:#999999;
+}
+/*密码样式
+=================*/
+.password{
+	width:300px;
+	height:42px;
+	height:40px\9;
+	border:1px solid #dbdbdb;
+	border-radius:3px;
+	margin-top:15px;
+}
+.password span{
+	float:left;
+	display:block;
+	width:41px;
+	height:40px;
+	background:#efefef url(img/password.png) center center no-repeat;
+}
+.password input{
+	float:left;
+	width:257px;
+	height:40px;
+	width:240px\9;
+	line-height: 40px\9;
+	background:#fff;
+	padding-left:10px;
+	color:#999999;
+}
+/*验证码样式
+=================*/
+.code{
+	width:300px;
+	width:302px\9;
+	height:42px;
+	margin-top:15px;
+}
+.code input{
+	float:left;
+	width:197px;
+	width:170px\9;
+	line-height: 40px\9;
+	height:42px;
+	border:1px solid #dbdbdb;
+	border-radius: 3px;
+	padding-left:23px;
+	color:#999;
+}
+.code p{
+	float:right;
+	background:url(img/code.jpg) center center no-repeat;
+	display:block;
+	width:92px;
+	width:93px\9;
+	height:42px;
+	border:1px solid #dbdbdb;
+	border-radius: 3px;
+	cursor:pointer;
+}
+/*登陆对象样式
+=================*/
+.log{
+	width:300px;
+	height:20px;
+	height:14px\9;
+	margin-top:18px;
+}
+.log .anniu{
+	height:20px;
+	height:14px\9;
+	float:left;
+	line-height: 20px;
+	line-height: 20px\9;
+	position:relative;
+	margin-right:18px;
+}
+.anniu input{
+	float:left;
+    width:14px;
+    height:20px;
+    position: absolute;
+    left: 0px;
+    top: 4px;
+}
+.anniu em{
+	float:left;
+	font-size:14px;
+	color:#999;
+	margin-left:4px;
+}
+input[type='radio'].radio {
+	opacity:0; 
+	display:inline-block; 
+	height:13px;
+	 }
+label.radio {
+        	background:url(img/radio_check.jpg) 0 3px no-repeat;
+        	height:20px;
+        	padding-left:19px;
+        	}
+input[type='radio'].radio:checked + .radio {
+        	background:url(img/radio_checked.jpg) 0 3px  no-repeat;
+        }
+
+/*登陆样式
+=================*/
+.login{
+	width:300px;
+	height:42px;
+	margin-top:23px;
+}
+.login button{
+	width:300px;
+	height:42px;
+	background:#0082e4;
+	border:0;
+	border-radius: 4px;
+	font-size:16px;
+	color:#fff;
+}
+/*忘记密码样式
+=================*/
+.Forget{
+	width:300px;
+	height:12px;
+	margin-top:10px;
+}
+.Forget a{
+	font-size:14px;
+	color:#999;
+	text-decoration: underline;
+	float:right;
+}
+
+/*
+    忘记密码模态框的输入框样式
+*/
+.forgetPasswordModal-body input{
+    margin-top: 10px; 
+    margin-left:30px; 
+    width: 220px;
+    height: 34px;
+    border-radius:3px ;  
+    border: 1px solid rgb(204,204,204) ;
+}
+
+/*
+    忘记密码模态框的Label样式
+*/
+.forgetPasswordModal-body label{
+    width: 100px;
+}
+
+/*
+    忘记密码模态框的Label样式
+*/
+.forgetPasswordModal-content{
+    background:#f4f7f4;
+}
