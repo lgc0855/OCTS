@@ -45,3 +45,7 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+#加入一些忽略文件
+\OCTS\Web.*
+\OCTS\App_Data\*
+/OCTS/Scripts

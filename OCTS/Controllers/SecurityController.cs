@@ -16,10 +16,6 @@ namespace OCTS.Controllers
         {
             return View();
         }
-        public void resetPassword()
-        {
-            ;
-        }
 
         public ActionResult Login()
         {

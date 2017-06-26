@@ -28,7 +28,7 @@
             <div class="top">
                 <span>用户登录</span>
             </div>
-            <form action="Login" method="post">
+            <form action="\Security\Login" method="post">
                 @{
                     var error = ViewData["ErrorMessage"];
                     if (error != null)
@@ -103,11 +103,6 @@
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/my_add/bootstrap.min.js"></script>
     <script src="~/Scripts/my_add/bootstrap-table.js"></script>
-    <script src="~/Scripts/my_add/bootstrap-table-export.js"></script>
-    <script src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
-    <script src="~/Scripts/my_add/bootstrap-fileinput/js/fileinput.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="~/Scripts/my_add/bootstrap-fileinput/js/zh.js"></script>
     <script>
         $(document).ready(function () {
             $("#forgetPasswordButtton").click(function () {
