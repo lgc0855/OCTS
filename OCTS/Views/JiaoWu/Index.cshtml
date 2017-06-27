@@ -14,6 +14,7 @@
     <!-- Bootstrap Core CSS -->
     <link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
+    
     <!-- MetisMenu CSS -->
     <link href="~/Content/metisMenu/metisMenu.min.css" rel="stylesheet">
 
@@ -25,7 +26,12 @@
 
     <!-- Custom Fonts -->
     <link href="~/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!--时间选择器需要的css-->
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen" />
 
+
+    <!--日历需要的css-->
+    <link href="~/Content/calendarStyle.css" rel="stylesheet" media="screen"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -376,14 +382,46 @@
                     <h1 class="page-header">学期管理</h1>
                 </div>
                 <!-- /.col-lg-12 -->
-                <p> 
-                    <label>添加新学期</label> <button class="btn btn-adn"> <i class="fa fa-plus fa-fw"></i></button> 
-                    <label>开始</label>  
-                </p>
-
-
 
             </div>
+            <!--添加新学期-->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="col-lg-1 col-md-1">
+                        <label style="margin-top:6px">新学期</label> 
+                    </div>
+                    <div class="form-group col-lg-5 col-md-5">
+                        <label for="dtp_input2" class="col-lg-2 col-md-2 control-label" style="margin-top:6px">开始</label>
+                        <div class="input-group date form_date " data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                            <input class="form-control" size="16" type="text" value="" readonly>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        </div>
+                        <input type="hidden" id="dtp_input2" value="" /><br />
+                    </div>
+                    <div class="form-group col-lg-5 col-md-5">
+                        <label for="dtp_input2" class="col-lg-2 col-md-2 control-label"style="margin-top:6px">结束</label>
+                        <div class="input-group date form_date " data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                            <input class="form-control" size="16" type="text" value="" readonly>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        </div>
+                        <input type="hidden" id="dtp_input2" value="" /><br />
+                    </div>
+
+                    <div class="col-lg-1 col-md-1">
+                       <button class="btn btn-adn"><i class="fa fa-check"></i> </button>
+                    </div>
+                </div>
+            </div>
+            <!--/#添加新学期-->
+            <div class="row">
+                <div id="datepicker" class="calendar clo-lg-9"></div>
+                <div class="col-lg-3">
+                    <h3>2017学年</h3>
+                </div>
+            </div>
+
         </div>
         <!-- /#page-wrapper -->
 
@@ -405,6 +443,48 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="~/Content/dist/js/sb-admin-2.js"></script>
+
+    <!--时间选择器所需的js-->
+    <script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.js"charset="UTF-8"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+
+    <script type="text/javascript" src="~/Scripts/canlendar-1.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="~/Scripts/canlendar-ui.js" charset="UTF-8"></script>
+
+    <script type="text/javascript">
+    $('.form_datetime').datetimepicker({
+        //language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        showMeridian: 1
+    });
+	$('.form_date').datetimepicker({
+        language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0
+    });
+	$('.form_time').datetimepicker({
+        language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 1,
+		minView: 0,
+		maxView: 1,
+		forceParse: 0
+    });
+    </script>
+
 
 </body>
 
