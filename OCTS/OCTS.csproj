@@ -443,6 +443,7 @@
     <Content Include="Views\JiaoWu\README.md" />
     <Content Include="Views\JiaoWu\UserInformation.cshtml" />
     <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\Student\CourseInformation.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
