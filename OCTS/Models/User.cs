@@ -21,7 +21,8 @@ namespace OCTS.Models
         public userTypeNum userType { get; set; }
         public string userEmail { get; set; }
         public string userPhone { get; set; }
-        public string userGroupId { get; set; }
+        //public string userGroupId { get; set; }
+        public string userSex { get; set; }
     }
 
     public class UserDBContext : DbContext
