@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@model IEnumerable<OCTS.Models.User>
+@{
+    ViewBag.Title = "UserInformation";
+}
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -249,11 +254,11 @@
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li>
-                            <a href="@Url.Action("UserInformation")"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                            <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="/Security/Login"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            <a href="/Security/login"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -373,18 +378,98 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">学期管理</h1>
+                    <h1 class="page-header" style="text-align:center">个人信息</h1>
                 </div>
-                <!-- /.col-lg-12 -->
-                <p> 
-                    <label>添加新学期</label> <button class="btn btn-adn"> <i class="fa fa-plus fa-fw"></i></button> 
-                    <label>开始</label>  
-                </p>
-
-
-
             </div>
-        </div>
+            <table class="table">
+                <tr style="align-content:center">
+                    <th>姓名</th>
+                    <th>@{
+                        var userName = ViewData["username"];
+                        if (userName != null)
+                        {
+                            <div text-align:center">@userName.ToString() </div>
+                        }
+                    }</th>                  
+                </tr>
+                <tr>
+                    <th>工号</th>
+                    <th>
+                        @{
+                        var userId = ViewData["userid"];
+                        if (userId != null)
+                        {
+
+                            <div text-align:center">@userId.ToString() </div>
+                        }
+                    }
+                </th>
+            </tr>
+                <tr>
+                    <th>性别</th>
+                    <th>
+                        @{
+                        var userSex = ViewData["usersex"];
+                        if (userSex != null)
+                        {
+
+                            <div text-align:center">@userSex.ToString() </div>
+                        }
+                    }
+                </th>
+            </tr>
+                <tr>
+                    <th>邮箱</th>
+                    <th>
+                        @{
+                        var userEmail = ViewData["useremail"];
+                        if (userEmail != null)
+                        {
+
+                            <div text-align:center">@userEmail.ToString() </div>
+                        }
+                    }
+                </th>
+            </tr>
+            <tr>
+                    <th>电话</th>
+                    <th>
+                        @{
+                        var userPhone = ViewData["userphone"];
+                        if (userPhone != null)
+                        {
+
+                            <div text-align:center">@userPhone.ToString() </div>
+                        }
+                    }
+                </th>
+            </tr>
+            </table>
+            <!--修改个人信息页面-->
+            <div class="modal fade " id="updateinfoModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog">
+                    <div class="modal-content forgetPasswordModal-content" style="text-align:center">
+                        <form action="/JiaoWu/Update">
+                            <div class="modal-body forgetPasswordModal-body">
+                                <p><label style="width:50px">姓名</label>  <input name="name" type="text" required></p>
+                                <p><label style="width:50px">Email</label><input name="email" type="email"></p>
+                                <p><label style="width:50px">电话</label><input name="phone" type="text"></p>
+                                <p><label style="width:50px">密码</label><input name="password" type="password" required></p>
+                            </div>
+                            <div class="modal-footer" style="text-align:center">
+                                <button class="btn btn-primary" data-dismiss="modal">关闭</button>
+                                <button id="Submit" type="submit" class="btn btn-danger">提交</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--修改个人信息页面-->
+            <div class="Forget">
+                <button type="button" id="updateinfo" class="btn btn-danger">修改个人信息</button>
+                <!--<a href="#">修改个人信息</a>-->
+            </div>
+</div>
         <!-- /#page-wrapper -->
 
     </div>
@@ -404,8 +489,15 @@
     <script src="~/Content/morris-data.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="~/Content/dist/js/sb-admin-2.js"></script>
-
+    <script>
+        $(document).ready(function () {
+            $("#updateinfo").click(function () {
+                $("#updateinfoModal").modal("show");
+            })
+        })
+    </script>
 </body>
 
 </html>
+
+

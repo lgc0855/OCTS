@@ -14,7 +14,7 @@ namespace OCTS.Models
     [Table("user")]
     public class User
     {
-        public enum userTypeNum { student = 3, teacher = 2,jiaoWu = 1, admin = 0 };
+        public enum userTypeNum { student = 3, teacher = 2,jiaowu = 1, admin = 0 };
         public string userId { get; set; }
         public string userName { get; set; }
         public string userPassword { get; set; }

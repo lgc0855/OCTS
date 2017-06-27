@@ -32,12 +32,8 @@ namespace OCTS.Controllers
                     if (user.userId == userName)
                     {
                         if (password == user.userPassword)
-                        {
-                            if (userType == "0")
-                            {
-                                return RedirectToAction("Index", "Admin");
-                            }
-                            else if (userType == "1")
+                        {                          
+                            if (userType == "1")
                             {
                                 return RedirectToAction("Index", "JiaoWu");
                             }
@@ -76,11 +72,7 @@ namespace OCTS.Controllers
                             accountCookie["userType"] = userType;
                             accountCookie.Expires = DateTime.Now.AddDays(1);
                             Response.Cookies.Add(accountCookie);
-                            if (userType == "admin")
-                            {
-                                return RedirectToAction("Index", "Admin");
-                            }
-                            else if(userType == "jiaowu")
+                            if(userType == "jiaowu")
                             {
                                 return RedirectToAction("Index", "JiaoWu");
                             }else if(userType == "teacher")
@@ -98,7 +90,29 @@ namespace OCTS.Controllers
             ViewData["ErrorMessage"] = "用户名密码不正确";
             return View();
         }
-
+        public ActionResult resetPassword(string userId, string userName,string email,string check,string password)
+        {
+            List<User> list = dbHelper.getUsers();
+            foreach (User user in list)
+            {
+                if (userId == user.userId)
+                {
+                    if(userName==user.userName)
+                    {
+                        if(email==user.userEmail)
+                        {
+                            if(check==check)
+                            {
+                                dbHelper.setUsersPassword(userId, password);
+                                return RedirectToAction("Login", "Security");
+                            }
+                        }
+                    }
+                    
+                }
+            }
+            return View();
+        }
         public ActionResult ForgetMessage()
         {
             return View();

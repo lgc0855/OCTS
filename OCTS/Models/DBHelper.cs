@@ -22,6 +22,35 @@ namespace OCTS.Models
             userdb = null;
             return users;
         }
+        public void setUsers(string userid, string username, string useremail, string userphone, string password)
+        {
+            UserDBContext userdb = new UserDBContext();
+            List<User> users = userdb.users.ToList();
+            foreach (User user in users)
+            {
+                if(user.userId==userid)
+                {
+                    user.userName = username;
+                    user.userEmail = useremail;
+                    user.userPhone = userphone;
+                    user.userPassword = password;
+                    userdb.SaveChanges(); 
+                }
+            }
+        }
+        public void setUsersPassword(string userid,string password)
+        {
+            UserDBContext userdb = new UserDBContext();
+            List<User> users = userdb.users.ToList();
+            foreach (User user in users)
+            {
+                if (user.userId == userid)
+                {
+                    user.userPassword = password;
+                    userdb.SaveChanges();
+                }
+            }
+        }
         public List<Course> getCourses()
         {
             CourseDBContext coursedb = new CourseDBContext();

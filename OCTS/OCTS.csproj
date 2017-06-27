@@ -433,6 +433,7 @@
     <Content Include="Views\Security\ForgetMessage.cshtml" />
     <Content Include="Views\JiaoWu\Index.cshtml" />
     <Content Include="Views\JiaoWu\README.md" />
+    <Content Include="Views\JiaoWu\UserInformation.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
