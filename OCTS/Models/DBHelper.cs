@@ -64,6 +64,29 @@ namespace OCTS.Models
             groupdb = null;
             return groups;
         }
+
+        //学期有关操作
+        public string addSemester(DateTime termStartTime, DateTime termEndTime , int termWeeks)
+        {
+            string result = "";
+            int num = 0;
+            TermInformationDBContext tIdb = new TermInformationDBContext();
+            TermInformation term = new TermInformation();
+            try
+            {
+                term.termStartTime = termStartTime;
+                term.termEndTime = termEndTime;
+                term.termWeeks = termWeeks;
+                tIdb.termInformations.Add(term);
+                num = tIdb.SaveChanges();
+                result = "succeed:写入" + num + "条信息";
+
+            }catch(Exception e)
+            {
+                result = "error:写入" + num + "条信息"; 
+            }
+            return result;
+        }
     }
 
    

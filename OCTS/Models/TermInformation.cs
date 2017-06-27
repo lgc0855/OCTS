@@ -14,7 +14,7 @@ namespace OCTS.Models
     [Table("termInformation")]
     public class TermInformation
     {
-        public string termId { get; set; }
+        public int termId { get; set; }
         public DateTime termStartTime { get; set; }
         public DateTime termEndTime { get; set; }
         public int termWeeks { get; set; }
