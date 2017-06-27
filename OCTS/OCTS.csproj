@@ -224,6 +224,13 @@
     <Content Include="App_Data\OCTS_log.ldf">
       <DependentUpon>OCTS.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\calendarStyle.css" />
+    <Content Include="Scripts\canlendar-1.js" />
+    <Content Include="Scripts\canlendar-ui.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.fr.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.js" />
+    <Content Include="Content\bootstrap-datetimepicker.min.css" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Content\bootstrap-social\bootstrap-social.css" />
     <Content Include="Content\bootstrap-table-click-edit-row.css" />
     <Content Include="Content\bootstrap-table.css" />
