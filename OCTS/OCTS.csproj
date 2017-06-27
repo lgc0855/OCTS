@@ -200,6 +200,7 @@
     <Compile Include="Controllers\JiaoWuController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -434,6 +435,7 @@
     <Content Include="Views\JiaoWu\Index.cshtml" />
     <Content Include="Views\JiaoWu\README.md" />
     <Content Include="Views\JiaoWu\UserInformation.cshtml" />
+    <Content Include="Views\Student\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
