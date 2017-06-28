@@ -14,7 +14,7 @@ namespace OCTS.Models
     [Table("user")]
     public class User
     {
-        public enum userTypeNum { student = 3, teacher = 2,jiaowu = 1, admin = 0 };
+        public enum userTypeNum { student = 3, teacher = 2,jiaowu = 1 };
         public string userId { get; set; }
         public string userName { get; set; }
         public string userPassword { get; set; }
@@ -23,7 +23,28 @@ namespace OCTS.Models
         public string userPhone { get; set; }
         //public string userGroupId { get; set; }
         public string userSex { get; set; }
+
+        public bool setUserType(string  type)
+        {
+            switch (type)
+            {
+                case "student":
+                    userType = userTypeNum.student;
+                    break;
+                case "teacher":
+                    userType = userTypeNum.teacher;
+                    break;
+                case "jiaowu":
+                    userType = userTypeNum.teacher;
+                    break;
+                default:
+                    return false;
+            }
+            return true;
+        }
     }
+
+
 
     public class UserDBContext : DbContext
     {
