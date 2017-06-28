@@ -117,7 +117,20 @@ namespace OCTS.Models
             return result;
         }
 
-        //
+        //查找用户
+        public User findUser(string userId)
+        {
+            UserDBContext userdb = new UserDBContext();
+            List<User> users = userdb.users.ToList();
+            foreach(User u in users)
+            {
+                if(u.userId == userId)
+                {
+                    return u;
+                }
+            }
+            return null;
+        }
     }
 
    
