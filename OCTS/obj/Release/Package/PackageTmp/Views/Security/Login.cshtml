@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/datepicker3.css" rel="stylesheet">
+    <link href="~/Content/bootstrap-table.css" rel="stylesheet">
+    <link href="~/Content/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css">
+    <link href="~/Scripts/my_add/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/landing.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/reset.css">
+</head>
+<body>
+    <div class="logo">
+        <a href="#"></a>
+    </div>
+    <div class="mian">
+        <div class="left-bj"></div>
+        <div class="right-x">
+            <!--标题-->
+            <div class="top">
+                <span>用户登录</span>
+            </div>
+            <form action="\Security\Login" method="post">
+                @{
+                    var error = ViewData["ErrorMessage"];
+                    if (error != null)
+                    {
+
+                        <div style="color:red; text-align:center">@error.ToString() </div>
+                    }
+                }
+                <!--用户名-->
+                <div class="user">
+                    <span></span>
+                    <input type="text" name="userName" required placeholder="学号/工号">
+                </div>
+                <!--密码-->
+                <div class="password">
+                    <span></span>
+                    <input type="password" name="password" required placeholder="密码">
+                </div>
+
+                <!--登陆对象-->
+                <div class="log">
+                    <div class="anniu">
+                        <input type="radio" name="userType" checked  value="student" class="radio"><label for="c" class="radio">学生登录</label>
+                    </div>
+                    <div class="anniu">
+                        <input type="radio" name="userType"  value="teacher" class="radio"><label for="c" class="radio">教师登录</label>
+                    </div>
+                    <div class="anniu">
+                        <input type="radio" name="userType" value="jiaowu" class="radio"><label for="c" class="radio">教务登录</label>
+                    </div>                  
+                </div>
+                <!--登陆-->
+                <div class="login">
+                    <button type="submit">登&nbsp;&nbsp; 录</button>
+                </div>
+            </form>
+
+            <!--以上是忘记密码模态框-->
+            <div class="modal fade " id="forgetPasswordModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog">
+                    <div class="modal-content forgetPasswordModal-content" style="text-align:center">
+
+                        <form action="/Security/resetPassword">
+                            <div class="modal-body forgetPasswordModal-body">
+                                <p><label>学号/工号</label>  <input name="userId" type="text" required  ></p>
+                                <p><label>姓名</label>  <input name="userName" type="text" required  ></p>
+                                <p><label>Email</label><input name="email" type="email" required ></p>
+                                <p><label>验证码</label><input name="check" type="text" required></p>
+                                <p><label>密码</label><input name="password" type="password" required></p>
+                            </div>
+                            <div class="modal-footer" style="text-align:center">
+                                <button class="btn btn-primary" data-dismiss="modal">关闭</button>
+                                <button id="resetPasswordSubmit" type="submit" class="btn btn-danger">提交</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--以上是忘记密码模态框-->
+
+            <!--忘记密码-->
+            <div class="Forget">
+                <button type="button" id="forgetPasswordButtton" class="btn btn-danger">忘记密码</button>
+               <!--<a href="#">忘记密码</a>--> 
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/my_add/bootstrap-table.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#forgetPasswordButtton").click(function () {
+                $("#forgetPasswordModal").modal("show");
+            })
+        })
+    </script>
+
+</body>
+</html>
+

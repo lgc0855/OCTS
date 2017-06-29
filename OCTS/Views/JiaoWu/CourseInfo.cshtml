@@ -1,0 +1,91 @@
+﻿@model IEnumerable<OCTS.Models.Course>
+
+@{
+    ViewBag.Title = "CourseInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    h2{
+        font-size:36px;
+        text-align:center;
+    }
+</style>
+<div>
+<h2>课程信息表</h2>
+</div>
+<div>
+    <button type="button" id="createCourseInfo" class="btn btn-danger" onclick="location.href='CreateCourseInfo'" >新增课程信息</button>
+    <table class="table">
+            <tr>
+                <th>
+                    课程名称
+                </th>
+                <th>
+                    课程开始时间
+                </th>
+                <th>
+                    课程结束时间
+                </th>
+                <th>
+                    教师名字
+                </th>
+                <th>
+                    学分
+                </th>
+                <th>
+                    地点
+                </th>
+                <th>
+                    学时
+                </th>
+                <th>
+                    课程状态
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.courseName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.courseStartTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.courseEndTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.courseTeacherName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.courseCredit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.coursePlace)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.courseTime)
+                    </td>
+                    @{
+                if (item.isEnd)
+                {
+                    <td>已结束</td>
+                }
+                else
+                {
+                    <td>进行中</td>
+                }
+                    }
+                    <td>
+                        @Html.ActionLink("编辑", "EditCourseInfo", new { id = item.courseId }) |
+                        @Html.ActionLink("详情", "CourseDetails", new { id = item.courseId }) |
+                        @Html.ActionLink("删除", "DeleteCourseInfo", new { id = item.courseId })
+                    </td>
+                </tr>
+            }
+
+</table>
+
+</div>

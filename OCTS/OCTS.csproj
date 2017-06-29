@@ -42,6 +42,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <IncludeIisSettings>true</IncludeIisSettings>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -412,6 +413,9 @@
     <Content Include="Content\font-awesome\scss\_spinning.scss" />
     <Content Include="Content\font-awesome\scss\_stacked.scss" />
     <Content Include="Content\font-awesome\scss\_variables.scss" />
+    <None Include="Properties\PublishProfiles\aa.pubxml" />
+    <None Include="Properties\PublishProfiles\octs.pubxml" />
+    <None Include="Properties\PublishProfiles\test.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\es.js" />
     <Content Include="Scripts\fileinput.js" />

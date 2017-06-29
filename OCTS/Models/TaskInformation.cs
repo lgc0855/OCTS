@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
@@ -21,6 +19,7 @@ namespace OCTS.Models
         public string taskPercent { get; set; }
         public string taskRequire { get; set; }
         public string taskSubmitter { get; set; }
+        public string courseId { get; set; }
     }
     public class TaskInformationDBContext : DbContext
     {
@@ -32,7 +31,7 @@ namespace OCTS.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<TaskInformation>().HasKey(c => c.taskId);
+            modelBuilder.Entity<TaskInformation>().HasKey(c => new { c.taskId, c.courseId });
         }
     }
 }

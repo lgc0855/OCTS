@@ -1,0 +1,54 @@
+﻿@model IEnumerable<OCTS.Models.User>
+
+@{
+    ViewBag.Title = "StudentInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    h2 {
+        font-size: 36px;
+        text-align: center;
+    }
+</style>
+<h2>学生个人信息</h2>
+
+<button type="button" id="createCourseInfo" class="btn btn-danger" onclick="location.href='#'">导入学生信息</button>
+<table class="table">
+    <tr>
+        <th>
+            学生姓名
+        </th>
+        <th>
+           学生性别
+        </th>
+        <th>
+            学生邮箱
+        </th>
+        <th>
+             学生电话
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.userName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.userSex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.userEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.userPhone)
+        </td>
+        <td>
+            @Html.ActionLink("编辑", "EditStudentInfo", new { id=item.userId }) |
+            @Html.ActionLink("详情", "StudentInfoDetails", new { id = item.userId }) |
+            @Html.ActionLink("删除", "DeleteStudentInfo", new { id=item.userId })
+        </td>
+    </tr>
+}
+
+</table>

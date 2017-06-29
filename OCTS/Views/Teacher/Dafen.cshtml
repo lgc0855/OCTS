@@ -1,0 +1,52 @@
+﻿@model OCTS.Models.TaskSubmit
+
+@{
+    ViewBag.Title = "Dafen";
+    Layout = "~/Views/Shared/_Teacher2.cshtml";
+}
+
+<h2>Dafen</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>TaskSubmit</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.groupId)
+        @Html.HiddenFor(model => model.courseId)
+        @Html.HiddenFor(model => model.taskId)
+        @Html.HiddenFor(model => model.submitTime)
+        @Html.HiddenFor(model => model.submitterId)
+        @Html.HiddenFor(model => model.submitTimes)
+        @Html.HiddenFor(model => model.taskUrl)
+
+        <div class="form-group">
+            @Html.Label("评分", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.taskGrade, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.taskGrade, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("评论", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.taskComment, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.taskComment, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="提交" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("返回列表", "TaskSubmitInfo")
+</div>

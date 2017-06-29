@@ -1,0 +1,82 @@
+﻿@model OCTS.Models.Course
+
+@{
+    ViewBag.Title = "CourseDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>课程详细信息</h2>
+
+<div>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            课程名称
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.courseName)
+        </dd>
+
+        <dt>
+            课程开始时间
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.courseStartTime)
+        </dd>
+
+        <dt>
+            课程结束时间
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.courseEndTime)
+        </dd>
+
+        <dt>
+            任课老师
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.courseTeacherName)
+        </dd>
+
+        <dt>
+            学分
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.courseCredit)
+        </dd>
+
+        <dt>
+            上课地点
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.coursePlace)
+        </dd>
+
+
+        <dt>
+            学时
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.courseTime)
+        </dd>
+
+        <dt>
+            课程状态
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isEnd)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("返回课程列表", "CourseInfo")
+</p>

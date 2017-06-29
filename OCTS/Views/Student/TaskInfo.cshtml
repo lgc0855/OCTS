@@ -1,0 +1,69 @@
+﻿@{
+    Layout = "~/Views/Shared/_StudentCourse.cshtml";
+}
+@{
+    ViewBag.Title = "TaskInfo";
+}
+
+<body>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">作业提交</h1>
+        </div>
+    </div>  
+    <div>
+        <pre>@ViewData["taskreq"]</pre>
+    </div>
+    <div>
+        <table class="table">
+            <tr>
+                <th>作业序号</th>
+                <th>提交时间</th>
+                <th>组序号</th>
+                <th>教师点评</th>
+                <th>作业分数</th>
+                <th>提交人</th>
+                <th>团队负责人</th>
+            </tr>
+            @{ 
+                int subNum = (int)ViewData["subnum"];
+                for(int i = 1; i <= subNum; i++)
+                {
+                    <tr>
+                        <th>@ViewData["taskid"+i]</th>
+                        <th>@ViewData["subtime" + i]</th>
+                        <th>@ViewData["groupid" + i]</th>
+                        <th><p>@ViewData["comment" + i]</p></th>
+                        <th>@ViewData["grade" + i]</th>
+                        <th>@ViewData["username" + i]</th>
+                        <th>@ViewData["leader" + i]</th>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+    <div>
+        @{ 
+            var userId = ViewData["userid"];
+            var leaderId = ViewData["leaderid"];
+            string maxtimes=(string)ViewData["taskmaxtimes"];
+            int taskMaxTimes = Int32.Parse(maxtimes);
+            if((subNum!=0&&userId.ToString().Equals(leaderId.ToString())&&subNum<taskMaxTimes)||(subNum==0))
+            {
+                using (Html.BeginForm("Upload","Student",new { taskreq=ViewData["taskreq"], courseid = ViewData["courseid"], taskid = ViewData["taskid"], taskmaxtimes = ViewData["taskmaxtimes"] },FormMethod.Post,new { enctype="multipart/form-data"}))
+                {
+                   <div>
+                       附件名称：<input name="UploadName"/>
+                   </div>
+                   <div>
+                       选择附件：<input name="UploadFile" type="file" />
+                   </div>
+                   <div>
+                       <input type="submit" value="上传" />
+                   </div>
+               }
+            }       
+        }       
+    </div>
+</body>
+

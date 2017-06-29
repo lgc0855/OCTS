@@ -1,0 +1,27 @@
+﻿@{
+    Layout = "~/Views/Shared/_StudentCourse.cshtml";
+}
+@{
+    ViewBag.Title = "CourseRequest";
+}
+
+<body>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">课程要求</h1>
+        </div>
+    </div>
+    @{
+        var ReUrl = ViewData["requrl"];
+    }
+    <div>
+        <pre>@ViewData["reqtxt"]</pre>
+    </div>
+    <div>
+        @{ if (ReUrl != null) { 
+        <a href="@Url.Action("Download", new { outUrl = ReUrl })"><input class="btn btn-danger" type="button" value="下载附件" /></a>
+            }
+        }
+    </div>
+</body>
+

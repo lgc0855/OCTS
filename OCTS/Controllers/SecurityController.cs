@@ -51,7 +51,13 @@ namespace OCTS.Controllers
             }
             return View();
         }
-
+        public ActionResult LogOut()
+        {
+            HttpCookie accountCookie = new HttpCookie("Account");
+            accountCookie.Expires = DateTime.Now.AddDays(-1);
+            Response.Cookies.Add(accountCookie);
+            return View("Login");
+        }
 
         [HttpPost]
         public ActionResult Login( string userName , string password , string userType)

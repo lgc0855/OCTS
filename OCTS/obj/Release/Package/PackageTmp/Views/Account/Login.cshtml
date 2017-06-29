@@ -1,0 +1,64 @@
+﻿@using OCTS.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "登录";
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/landing.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/reset.css">
+</head>
+<body>
+    <div class="logo">
+        <a href="#"></a>
+    </div>
+    <div class="mian">
+        <div class="left-bj"></div>
+        <div class="right-x">
+            <!--标题-->
+            <div class="top">
+                <span>用户登录</span>
+            </div>
+            <!--用户名-->
+            <div class="user">
+                <span></span>
+                <input type="text" value="用户名/手机号">
+            </div>
+            <!--密码-->
+            <div class="password">
+                <span></span>
+                <input type="text" value="用户名/手机号">
+            </div>
+            <!--验证码-->
+            <div class="code">
+                <input type="text" value="验证码">
+                <p></p>
+            </div>
+            <!--登陆对象-->
+            <div class="log">
+                <div class="anniu">
+                    <input type="radio" name="sex" id="c" value="F" class="radio"><label for="c" class="radio">学生登录</label>
+                </div>
+                <div class="anniu">
+                    <input type="radio" name="sex" id="c" value="F" class="radio"><label for="c" class="radio">教师登录</label>
+                </div>
+                <div class="anniu">
+                    <input type="radio" name="sex" id="c" value="F" class="radio"><label for="c" class="radio">管理员登录</label>
+                </div>
+            </div>
+            <!--登陆-->
+            <div class="login">
+                <button>登&nbsp;&nbsp; 录</button>
+            </div>
+            <!--忘记密码-->
+            <div class="Forget">
+                <a href="#">忘记密码</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

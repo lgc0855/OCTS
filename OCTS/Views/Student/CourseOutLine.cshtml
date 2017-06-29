@@ -1,0 +1,29 @@
+﻿@{
+    Layout = "~/Views/Shared/_StudentCourse.cshtml";
+}
+@{
+    ViewBag.Title = "CourseOutLine";
+}
+
+<body>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">课程大纲</h1>
+        </div>
+    </div>
+    @{ 
+        var OLUrl = ViewData["url"];
+    }
+    <div>
+        <pre>@ViewData["txt"]</pre>
+    </div>
+    <div>
+        @{ 
+            if (OLUrl != null)
+            {
+                <a href="@Url.Action("Download", new { outUrl = OLUrl })"><input class="btn btn-danger" type="button" value="下载附件"/></a>
+                }
+            }
+    </div>
+</body>
+

@@ -1,0 +1,161 @@
+﻿@model OCTS.Models.Course
+
+@{
+    ViewBag.Title = "EditCourseInfo";
+    Layout = "~/Views/Shared/_Teacher1.cshtml";
+}
+
+<h2>EditCourseInfo</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Course</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.courseId)
+
+        <div class="form-group" style="display:none">
+            @Html.LabelFor(model => model.courseName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.courseName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.courseName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="display:none">
+            @Html.LabelFor(model => model.courseStartTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.courseStartTime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.courseStartTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="display:none">
+            @Html.LabelFor(model => model.courseEndTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.courseEndTime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.courseEndTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="display:none">
+            @Html.LabelFor(model => model.courseRequireURL, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.courseRequireURL, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.courseRequireURL, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="display:none">
+            @Html.LabelFor(model => model.courseOutlineURL, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.courseOutlineURL, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.courseOutlineURL, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="display:none">
+            @Html.LabelFor(model => model.courseTeacherName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.courseTeacherName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.courseTeacherName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="display:none">
+            @Html.LabelFor(model => model.courseCredit, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.courseCredit, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.courseCredit, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="display:none">
+            @Html.LabelFor(model => model.coursePlace, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.coursePlace, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.coursePlace, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.maxNumPerGroup, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.maxNumPerGroup, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.maxNumPerGroup, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.minNumPerGroup, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.minNumPerGroup, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.minNumPerGroup, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="display:none">
+            @Html.LabelFor(model => model.courseTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.courseTime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.courseTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="display:none">
+            @Html.LabelFor(model => model.isEnd, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isEnd)
+                    @Html.ValidationMessageFor(model => model.isEnd, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+       
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @{
+        string courseid = (string)ViewData["courseid"];
+    }
+    @using (Html.BeginForm("UploadOutline", "Teacher", new { courseID = courseid }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div>
+            附件名称：<input name="UploadName" />
+        </div>
+        <div>
+            选择附件：<input name="UploadFile" type="file" />
+        </div>
+        <div>
+            <input type="submit" value="上传教学大纲" />
+        </div>
+
+    }
+    @using (Html.BeginForm("UploadRequire", "Teacher", new { courseID = courseid }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div>
+            附件名称：<input name="UploadName" />
+        </div>
+        <div>
+            选择附件：<input name="UploadFile" type="file" />
+        </div>
+        <div>
+            <input type="submit" value="上传教学要求" />
+        </div>
+
+    }
+</div>
+
+<div>
+    @Html.ActionLink("返回列表", "CourseInfo")
+</div>

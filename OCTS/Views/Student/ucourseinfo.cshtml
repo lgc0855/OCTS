@@ -1,0 +1,80 @@
+﻿@{
+    Layout = "~/Views/Shared/_StudentCourse.cshtml";
+}
+@{
+    ViewBag.Title = "ucourseinfo";
+}
+<body>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">课程详情</h1>
+        </div>
+    </div>
+    @{ 
+        var courseName = ViewData["coursename"];
+        var courseStart = ViewData["coursestart"];
+        var courseEnd = ViewData["courseend"];
+        var courseReqUrl = ViewData["courserequrl"];
+        var courseOutUrl = ViewData["courseouturl"];
+        var courseTeacher = ViewData["courseteacher"];
+        var courseCredit = ViewData["coursecredit"];
+        var courseMaxNum = ViewData["coursemaxnum"];
+        var courseMinNum = ViewData["courseminnum"];
+        var coursePlace = ViewData["courseplace"];
+        var courseTime = ViewData["coursetime"];
+        var courseIsEnd = ViewData["courseisend"];
+        string isend;
+        if (courseIsEnd.ToString()=="True")
+        {
+            isend = "已结束";
+        }
+        else
+        {
+            isend = "未结束";
+        }
+    }
+    <table class="table" align="center" style="font-size:medium">
+        <tr>
+            <th style="width:25%"></th>
+            <th style="width:25%">课程名称：</th>
+            <th style="width:50%">@courseName.ToString()</th>
+        </tr>
+        <tr>
+            <th style="width:25%"></th>
+            <th style="width:25%">任课老师：</th>
+            <th style="width:50%">@courseTeacher.ToString()</th>           
+        </tr>
+        <tr>
+            <th style="width:25%"></th>
+            <th style="width:25%">上课地点：</th>
+            <th style="width:50%">@coursePlace.ToString()</th>
+        </tr>
+        <tr>
+            <th style="width:25%"></th>
+            <th style="width:25%">学分</th>
+            <th style="width:50%">@courseCredit.ToString()</th>
+        </tr>
+        <tr>
+            <th style="width:25%"></th>
+            <th style="width:25%">课程时间：</th>
+            <th style="width:50%">@courseStart.ToString() &nbsp; - &nbsp; @courseEnd.ToString()</th>         
+            </tr>
+        <tr>
+            <th style="width:25%"></th>
+            <th style="width:25%">团队人数：</th>
+            <th style="width:50%">@courseMinNum.ToString() &nbsp; - &nbsp;@courseMaxNum.ToString()</th>
+        </tr>  
+        <tr>
+            <th style="width:25%"></th>
+            <th style="width:25%">学时：</th>
+            <th style="width:50%">@courseTime.ToString()</th>
+        </tr>  
+        <tr>
+            <th style="width:25%"></th>
+            <th style="width:25%">课程状态：</th>
+            <th style="width:50%">@isend</th>
+        </tr>  
+    </table>
+</body>
+
+

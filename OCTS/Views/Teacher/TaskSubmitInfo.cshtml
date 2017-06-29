@@ -1,0 +1,68 @@
+﻿@model IEnumerable<OCTS.Models.TaskSubmit>
+
+@{
+    ViewBag.Title = "TaskSubmitInfo";
+    Layout = "~/Views/Shared/_Teacher2.cshtml";
+}
+
+<h2>作业提交信息</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            组编号
+        </th>
+        <th>
+            作业编号
+        </th>
+        <th>
+            提交时间
+        </th>
+        <th>
+            提交人
+        </th>
+        <th>
+            作业得分
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.groupId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.taskId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.submitTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.submitterId)
+            </td>
+            <td>
+                @{
+        if (item.taskGrade == 0)
+        {
+            <p>
+                未设置
+            </p>
+        }
+        else
+        {
+            @Html.DisplayFor(modelItem => item.taskGrade)
+        }
+                }
+
+            </td>
+            <td>
+                <a href="@Url.Action("Download", "Teacher", new {url=item.taskUrl })">下载</a> |
+                @Html.ActionLink("打分及评论", "Dafen", new { gid = item.groupId, tid = item.taskId,st =(DateTime) item.submitTime,cid = item.courseId })
+            </td>
+        </tr>
+    }
+
+</table>
+

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<OCTS.Models.Source>
+
+@{
+    ViewBag.Title = "SourceInfo";
+    Layout = "~/Views/Shared/_Teacher2.cshtml";
+}
+
+<h2>资源</h2>
+
+<button type="button" id="createCourseInfo" class="btn btn-danger" onclick="location.href='#'">上传</button>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.sourceName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sourceTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sourceSubmitter)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.courseId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.sourceName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sourceTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sourceSubmitter)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.courseId)
+        </td>
+        <td>
+            <a href="@Url.Action("Download", "Teacher", new {url=item.sourceURL })">下载</a>
+        </td>
+    </tr>
+}
+
+</table>

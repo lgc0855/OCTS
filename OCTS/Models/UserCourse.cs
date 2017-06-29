@@ -31,7 +31,7 @@ namespace OCTS.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<UserCourse>().HasKey(c => c.userId);//需要更改
+            modelBuilder.Entity<UserCourse>().HasKey(c => new { c.userId, c.courseId });//需要更改
         }
     }
 }

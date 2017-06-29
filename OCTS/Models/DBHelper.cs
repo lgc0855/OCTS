@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 
@@ -79,6 +80,13 @@ namespace OCTS.Models
             sourcedb = null;
             return sources;
         }
+        public List<UserCourse> getUserCourses()
+        {
+            UserCourseDBContext userCoursedb = new UserCourseDBContext();
+            List<UserCourse> userCourses = userCoursedb.userCourses.ToList();
+            userCoursedb = null;
+            return userCourses;
+        }
         public List<TeacherCourse> getTeacherCourses()
         {
             TeacherCourseDBContext teacherCoursedb = new TeacherCourseDBContext();
@@ -93,7 +101,13 @@ namespace OCTS.Models
             groupdb = null;
             return groups;
         }
-
+        public List<TaskSubmit> getTaskSubmits()
+        {
+            TaskSubmitDBContext tasksubmitdb = new TaskSubmitDBContext();
+            List<TaskSubmit> taskSubmits = tasksubmitdb.taskSubmits.ToList();
+            tasksubmitdb = null;
+            return taskSubmits;
+        }
         //学期有关操作
         public string addSemester(DateTime termStartTime, DateTime termEndTime , int termWeeks)
         {
@@ -130,6 +144,166 @@ namespace OCTS.Models
                 }
             }
             return null;
+        }
+        public void addTaskSubmit(string groupid, string taskid, DateTime submittime, string userId, string submittimes, int taskgrade, string taskcomment, string submitterid, string courseid, string taskurl)
+        {
+
+            //TermInformationDBContext tIdb = new TermInformationDBContext();
+            //TermInformation term = new TermInformation();
+            int num;
+            TaskSubmitDBContext tsdb = new TaskSubmitDBContext();
+            TaskSubmit ts = new TaskSubmit();
+            try
+            {
+                ts.groupId = groupid;
+                ts.taskId = taskid;
+                ts.submitTime = submittime;
+                ts.userId = userId;
+                ts.submitTimes = submittimes;
+                ts.taskGrade = taskgrade;
+                ts.taskComment = taskcomment;
+                ts.submitterId = submitterid;
+                ts.courseId = courseid;
+                ts.taskUrl = taskurl;
+                tsdb.taskSubmits.Add(ts);
+                num = tsdb.SaveChanges();
+                // tIdb.termInformations.Add(term);
+                //tIdb.SaveChanges();
+
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+        //获取最新学期信息
+        public DateTime[] getNewTermInformation()
+        {
+            TermInformationDBContext termdb = new TermInformationDBContext();
+            DateTime[] result = new DateTime[2];
+            TermInformation[] terms = termdb.termInformations.ToArray();
+            if(terms.Length > 0)
+            {
+                result[0] = terms[terms.Length - 1].termStartTime;
+                result[1] = terms[terms.Length - 1].termEndTime;
+                return result;
+            }
+            
+            return null;
+
+        }
+        //添加课程信息
+        public void addCourse(string name, string start, string end, string address, string teacher)
+        {
+            CourseDBContext db = new CourseDBContext();
+
+            DateTimeFormatInfo dtFormat = new System.Globalization.DateTimeFormatInfo();
+            dtFormat.ShortDatePattern = "yyyy/MM/dd";
+            DateTime dt1 = Convert.ToDateTime(start, dtFormat);
+            DateTime dt2 = Convert.ToDateTime(end, dtFormat);
+
+            Course course = new Course();
+            string coursesId = System.DateTime.Now.ToLongDateString();
+            course.courseId = coursesId;
+            course.courseName = name;
+            course.courseStartTime = dt1;
+            course.courseEndTime = dt2;
+            course.coursePlace = address;
+            course.courseTeacherName = teacher;
+            course.courseCredit = 5;
+            course.courseOutlineURL = "";
+            course.courseRequireURL = "";
+            course.courseTime = 0;
+            course.maxNumPerGroup = 0;
+            course.minNumPerGroup = 0;
+            course.isEnd = false;
+
+            db.courses.Add(course);
+            db.SaveChanges();
+            db = null;
+        }
+
+        internal void addCourse(string courseName, string courseStartTime, string courseEndTime, string coursePlace, string courseTeacherName, string courseCredit, string courseTime)
+        {
+            CourseDBContext db = new CourseDBContext();
+
+            DateTimeFormatInfo dtFormat = new System.Globalization.DateTimeFormatInfo();
+            dtFormat.ShortDatePattern = "yyyy/MM/dd";
+            DateTime dt1 = Convert.ToDateTime(courseStartTime, dtFormat);
+            DateTime dt2 = Convert.ToDateTime(courseEndTime, dtFormat);
+
+            Course course = new Course();
+            string coursesId = System.DateTime.Now.ToString();
+            course.courseId = coursesId;
+            course.courseName = courseName;
+            course.courseStartTime = dt1;
+            course.courseEndTime = dt2;
+            course.coursePlace = coursePlace;
+            course.courseTeacherName = courseTeacherName;
+
+            /*
+            int coursecredit = 0;
+            try
+            {
+                coursecredit = Convert.ToInt32(courseCredit);
+            }
+            catch (Exception)
+            {
+                coursecredit = 0;
+            }
+            course.courseCredit = coursecredit;
+            int coursetime = 0;
+            try
+            {
+               coursetime = Convert.ToInt32(courseTime);
+
+            }
+            catch (Exception)
+            {
+                coursetime = 0;
+            }
+            course.courseTime = coursetime;
+             */
+            course.courseCredit = Convert.ToInt32(courseCredit);
+            course.courseTime = Convert.ToInt32(courseTime);
+            course.courseOutlineURL = "";
+            course.courseRequireURL = "";
+            course.maxNumPerGroup = 0;
+            course.minNumPerGroup = 0;
+            course.isEnd = false;
+
+            db.courses.Add(course);
+            db.SaveChanges();
+            db = null;
+        }
+
+        public void addOutline(string courseid, string outline)
+        {
+            CourseDBContext db = new CourseDBContext();
+            List<Course> clist = db.courses.ToList();
+            foreach (Course course in clist)
+            {
+                if (course.courseId == courseid)
+                {
+                    course.courseOutlineURL = outline;
+                }
+            }
+            int num = db.SaveChanges();
+            db = null;
+        }
+        public void addRequire(string courseid, string require)
+        {
+            CourseDBContext db = new CourseDBContext();
+            List<Course> clist = db.courses.ToList();
+            foreach (Course course in clist)
+            {
+                if (course.courseId == courseid)
+                {
+                    course.courseRequireURL = require;
+                }
+            }
+            int num = db.SaveChanges();
+            db = null;
         }
     }
 

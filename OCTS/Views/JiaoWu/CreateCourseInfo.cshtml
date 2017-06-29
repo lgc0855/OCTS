@@ -1,0 +1,91 @@
+﻿@model OCTS.Models.Course
+
+@{
+    ViewBag.Title = "CreateCourseInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>创建课程信息</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+
+
+        <div class="form-group" style="display:none">
+            @Html.Label("课程ID", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @Html.EditorFor(model => model.courseId)
+                @Html.ValidationMessageFor(model => model.courseId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("课程名称", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.courseName)
+                @Html.ValidationMessageFor(model => model.courseName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("开始时间", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.courseStartTime)
+                @Html.ValidationMessageFor(model => model.courseStartTime)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("结束时间", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.courseEndTime)
+                @Html.ValidationMessageFor(model => model.courseEndTime)
+            </div>
+        </div>
+
+        <div class="form-group" >
+            @Html.Label("教师姓名", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.courseTeacherName)
+                @Html.ValidationMessageFor(model => model.courseTeacherName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("学分", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.courseCredit)
+                @Html.ValidationMessageFor(model => model.courseCredit)
+            </div>
+        </div>
+
+        <div class="form-group" >
+            @Html.Label("上课地点", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.coursePlace)
+                @Html.ValidationMessageFor(model => model.coursePlace)
+            </div>
+        </div>
+
+
+        <div class="form-group" >
+            @Html.Label("学时", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.courseTime)
+                @Html.ValidationMessageFor(model => model.courseTime)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="创建" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

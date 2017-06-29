@@ -1,0 +1,129 @@
+﻿@model OCTS.Models.Course
+
+@{
+    ViewBag.Title = "EnterCourse";
+    Layout = "~/Views/Shared/_Teacher2.cshtml";
+}
+
+<h2>基本信息</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            课程名称
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.courseName)
+        </dd>
+
+        <dt>
+            开课时间
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.courseStartTime)
+        </dd>
+
+        <dt>
+            结课时间
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.courseEndTime)
+        </dd>
+
+        <dt>
+            任课老师
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.courseTeacherName)
+        </dd>
+
+        <dt>
+            学分
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.courseCredit)
+        </dd>
+
+        <dt>
+            上课地点
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.coursePlace)
+        </dd>
+
+        <dt>
+            团队最大人数
+        </dt>
+
+        <dd>
+            
+                @{
+                    if (Model.maxNumPerGroup == 0){
+                        <p>
+                            @Html.ActionLink("去设置", "EditCourseInfo", new { id = Model.courseId })
+                        </p>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => model.maxNumPerGroup)
+                    }
+                }   
+           
+        </dd>
+
+        <dt>
+            团队最小人数
+        </dt>
+
+        <dd>
+            @{
+                if (Model.minNumPerGroup == 0)
+                {
+                    <p>
+                        @Html.ActionLink("去设置", "EditCourseInfo", new { id = Model.courseId })
+                    </p>
+                }
+                else
+                {
+                    @Html.DisplayFor(model => model.minNumPerGroup)
+                }
+            }
+        </dd>
+
+        <dt>
+            学时
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.courseTime)
+        </dd>
+
+        <dt>
+            课程状态
+        </dt>
+
+        <dd>
+            @{
+                if (!Model.isEnd)
+                {
+                    <p>进行中</p>
+                }
+                else
+                {
+                    <p>已结束</p>
+                }
+            }
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("返回列表", "CourseInfo")
+</p>

@@ -1,0 +1,54 @@
+﻿@model IEnumerable<OCTS.Models.Course>
+
+@{
+    ViewBag.Title = "CourseInfo";
+    Layout = "~/Views/Shared/_Teacher1.cshtml";
+}
+
+<h2>课程信息</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            课程名称
+        </th>
+        <th>
+            任课老师
+        </th>
+        <th>
+            学分
+        </th>
+        <th>
+            上课地点
+        </th>
+        <th>
+            学时
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.courseName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.courseTeacherName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.courseCredit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.coursePlace)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.courseTime)
+        </td>
+        <td>
+            @Html.ActionLink("设置课程信息", "EditCourseInfo", new { id=item.courseId }) |
+            @Html.ActionLink("进入课程", "EnterCourse", new { id=item.courseId })
+        </td>
+    </tr>
+}
+
+</table>

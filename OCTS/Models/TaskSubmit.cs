@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
@@ -17,10 +15,13 @@ namespace OCTS.Models
         public string groupId { get; set; }
         public string taskId { get; set; }
         public DateTime submitTime { get; set; }//提交时间
-        public string submitterId { get; set; }
+        public string userId { get; set; }
         public string submitTimes { get; set; }//提交次数
         public int taskGrade { get; set; }
         public string taskComment { get; set; }//作业评论
+        public string submitterId { get; set; }
+        public string courseId { get; set; }
+        public string taskUrl { get; set; }
 
     }
 
@@ -34,7 +35,7 @@ namespace OCTS.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<TaskSubmit>().HasKey(c => c.groupId);//需要改
+            modelBuilder.Entity<TaskSubmit>().HasKey(c => new { c.groupId, c.taskId, c.submitTime, c.courseId });//需要改
         }
     }
 }

@@ -1,0 +1,39 @@
+﻿@{
+    Layout = "~/Views/Shared/_StudentCourse.cshtml";
+}
+@{
+    ViewBag.Title = "StudentHandin";
+}
+<body>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">课程作业</h1>
+        </div>
+    </div>
+    <table class="table">
+        <tr>
+            <th>作业编号</th>
+            <th>起始时间</th>
+            <th>结束时间</th>
+            <th>最大提交次数</th>
+            <th>本次作业占分比</th>
+            <th>发布老师</th>
+            <th></th>
+        </tr>
+        @{
+            for (int i = 1; i <= (int)ViewData["tasknum"]; i++)
+            {
+                <tr>
+                    <th>@ViewData["taskid" + i]</th>
+                    <th>@ViewData["taskstart" + i]</th>
+                    <th>@ViewData["taskend" + i]</th>
+                    <th>@ViewData["taskmaxtimes" + i]</th>
+                    <th>@ViewData["taskpercent" + i]</th>
+                    <th>@ViewData["taskpeople" + i]</th>
+                    <th><a href="@Url.Action("TaskInfo", new { TaskReq = ViewData["taskreq" + i], courseId = ViewData["courseid"], TaskId = ViewData["taskid" + i], TaskMaxTimes = ViewData["taskmaxtimes" + i] })"><input type="button" value="查看作业" class="btn btn-danger"/></a></th>
+                </tr>
+            }
+        }
+    </table>
+</body>
+

@@ -1,0 +1,73 @@
+﻿@model OCTS.Models.User
+
+@{
+    ViewBag.Title = "DeleteTeacherInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DeleteTeacherInfo</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.userName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.userPassword)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userPassword)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.userType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.userEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.userPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.userSex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userSex)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("返回列表", "TeacherInfo")
+        </div>
+    }
+</div>

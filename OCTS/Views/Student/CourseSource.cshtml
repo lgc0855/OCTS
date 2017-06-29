@@ -1,0 +1,49 @@
+﻿@{
+    Layout = "~/Views/Shared/_studentCourse.cshtml";
+}
+@{
+    ViewBag.Title = "CourseSource";
+}
+
+<body>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">课程资源</h1>
+        </div>
+    </div>
+        @{
+            var sourceNum = (int)ViewData["sourcenum"];
+        }
+        <table class="table" style="font-size:medium">
+            <tr style="align-content:center">
+                <th></th>
+                <th>资源名称</th>
+                <th>上传人</th>
+                <th>上传时间</th>
+                <th></th>
+                </tr>
+                @{
+                    for (int i = 1; i <= sourceNum; i++)
+                    {
+                    <tr style="align-content:center">
+                        <th>
+                            <!--  <input type="checkbox" name="CheckBoxRole" id="CheckBoxRole" />-->
+                        </th>
+                        <th>
+                            @ViewData["sourcename"+i]
+                        </th>
+                        <th>
+                            @ViewData["sourcesubmitter"+i]
+                        </th>
+                        <th>
+                            @ViewData["sourcetime"+i]
+                        </th>
+                        <th>
+                            <a href="@Url.Action("Download", "Student", new { outUrl=ViewData["sourceurl"+i]})"><input class="btn btn-danger" type="button" value="下载资源"></a>
+                        </th>
+                    </tr>
+                    }
+                }
+            </table>
+</body>
+

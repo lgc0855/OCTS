@@ -1,0 +1,58 @@
+﻿@model OCTS.Models.TaskInformation
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Teacher2.cshtml";
+}
+
+<div>
+    <h4>作业信息</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            作业名称
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.taskName)
+        </dd>
+
+        <dt>
+            开始时间
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.taskStartTime)
+        </dd>
+
+        <dt>
+            结束时间
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.taskEndTime)
+        </dd>
+
+        <dt>
+            最大提交次数
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.taskMaxSubmitTime)
+        </dd>
+
+        <dt>
+            作业要求
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.taskRequire)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("编辑", "EditTaskInfo", new { id = Model.taskId }) |
+    @Html.ActionLink("返回作业列表", "TaskListInfo")
+</p>
+

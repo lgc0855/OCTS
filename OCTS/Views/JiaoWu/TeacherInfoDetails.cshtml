@@ -1,0 +1,51 @@
+﻿@model OCTS.Models.User
+
+@{
+    ViewBag.Title = "TeacherInfoDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>教师详细信息</h2>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            教师姓名
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userName)
+        </dd>
+        <dt>
+           教师性别
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userSex)
+        </dd>
+
+        <dt>
+            教师邮箱
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userEmail)
+        </dd>
+
+        <dt>
+            教师电话
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userPhone)
+        </dd>
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("编辑", "EditTeacherInfo", new { id = Model.userId }) |
+    @Html.ActionLink("返回列表", "TeacherInfo")
+</p>

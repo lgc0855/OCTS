@@ -1,0 +1,57 @@
+﻿@model IEnumerable<OCTS.Models.TaskInformation>
+
+@{
+    ViewBag.Title = "TaskListInfo";
+    Layout = "~/Views/Shared/_Teacher2.cshtml";
+}
+
+<h2>作业信息列表</h2>
+
+<p>
+    @Html.ActionLink("新建", "CreateTaskInfo")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            作业ID
+        </th>
+        <th>
+            作业名称
+        </th>
+        <th>
+           作业开始时间
+        </th>
+        <th>
+            作业结束时间
+        </th>
+        <th>
+           作业最大提交次数
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.taskId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.taskName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.taskStartTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.taskEndTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.taskMaxSubmitTime)
+        </td>
+        <td>
+            @Html.ActionLink("详细", "TaskInfoDetails", new { id = item.taskId }) |
+            @Html.ActionLink("修改", "EditTaskInfo", new { id = item.taskId }) |
+            @Html.ActionLink("删除", "DeleteTaskInfo", new { id = item.taskId })
+        </td>
+    </tr>
+}
+
+</table>
