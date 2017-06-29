@@ -247,6 +247,8 @@
     <Content Include="Content\morris.css" />
     <Content Include="Content\sortable.js" />
     <Content Include="Content\theme.css" />
+    <Content Include="img\loading-sm.gif" />
+    <Content Include="img\loading.gif" />
     <Content Include="Scripts\ajaxfileupload.js" />
     <Content Include="Scripts\canlendar-1.js" />
     <Content Include="Scripts\canlendar-ui.js" />
@@ -561,13 +563,55 @@
     <Content Include="Views\Teacher\ResourceManage.cshtml" />
     <Content Include="Views\Home\ResourceManage.cshtml" />
     <Content Include="Views\Home\_Layout.cshtml" />
+    <Content Include="Views\Teacher\CourseInfo.cshtml" />
+    <Content Include="Views\Teacher\CreateTaskInfo.cshtml" />
+    <Content Include="Views\Teacher\Dafen.cshtml" />
+    <Content Include="Views\Teacher\DeleteTaskInfo.cshtml" />
+    <Content Include="Views\Teacher\EditCourseInfo.cshtml" />
+    <Content Include="Views\Teacher\EditTaskInfo.cshtml" />
+    <Content Include="Views\Teacher\EditTaskInfos.cshtml" />
+    <Content Include="Views\Teacher\EnterCourse.cshtml" />
+    <Content Include="Views\Teacher\Index.cshtml" />
+    <Content Include="Views\Teacher\SourceInfo.cshtml" />
+    <Content Include="Views\Teacher\TaskInfoDetails.cshtml" />
+    <Content Include="Views\Teacher\TaskListInfo.cshtml" />
+    <Content Include="Views\Teacher\TaskSubmitInfo.cshtml" />
+    <Content Include="Views\Teacher\UserInformation.cshtml" />
+    <Content Include="Views\Student\CourseOutLine.cshtml" />
+    <Content Include="Views\Student\CourseRequest.cshtml" />
+    <Content Include="Views\Student\CourseSource.cshtml" />
+    <Content Include="Views\Student\StudentHandin.cshtml" />
+    <Content Include="Views\Student\TaskInfo.cshtml" />
+    <Content Include="Views\Student\ucourseinfo.cshtml" />
+    <Content Include="Views\Student\UserInformation.cshtml" />
+    <Content Include="Views\Shared\_StudentCourse.cshtml" />
+    <Content Include="Views\Shared\_studentIndex.cshtml" />
+    <Content Include="Views\Shared\_Teacher1.cshtml" />
+    <Content Include="Views\Shared\_Teacher2.cshtml" />
+    <Content Include="Views\JiaoWu\CourseDetails.cshtml" />
+    <Content Include="Views\JiaoWu\CourseInfo.cshtml" />
+    <Content Include="Views\JiaoWu\CreateCourseInfo.cshtml" />
+    <Content Include="Views\JiaoWu\DeleteCourseInfo.cshtml" />
+    <Content Include="Views\JiaoWu\DeleteStudentInfo.cshtml" />
+    <Content Include="Views\JiaoWu\DeleteTeacherInfo.cshtml" />
+    <Content Include="Views\JiaoWu\EditCourseInfo.cshtml" />
+    <Content Include="Views\JiaoWu\EditStudentInfo.cshtml" />
+    <Content Include="Views\JiaoWu\EditTeacherInfo.cshtml" />
+    <Content Include="Views\JiaoWu\StudentInfo.cshtml" />
+    <Content Include="Views\JiaoWu\StudentInfoDetails.cshtml" />
+    <Content Include="Views\JiaoWu\TeacherInfo.cshtml" />
+    <Content Include="Views\JiaoWu\TeacherInfoDetails.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ExcelFiles\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>

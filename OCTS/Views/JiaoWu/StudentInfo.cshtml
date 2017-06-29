@@ -4,6 +4,10 @@
     ViewBag.Title = "StudentInfo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<head>
+    <link href="~/Content/fileinput.min.css" rel="stylesheet" />
+
+</head>
 <style type="text/css">
     h2 {
         font-size: 36px;
@@ -12,7 +16,7 @@
 </style>
 <h2>学生个人信息</h2>
 
-<button type="button" id="createCourseInfo" class="btn btn-danger" onclick="location.href='#'">导入学生信息</button>
+<button type="button" id="create-students" class="btn btn-danger" onclick="location.href='#'">导入学生信息</button>
 <table class="table">
     <tr>
         <th>
@@ -52,3 +56,44 @@
 }
 
 </table>
+
+
+<div id="student-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <input id="input-id" type="file" multiple data-preview-file-type="text" formenctype="multipart/form-data" name="file">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/fileinput.min.js"></script>
+<script src="~/Scripts/zh.js"></script>
+
+<script>
+    $("#input-id").fileinput({
+        minFileCount: 1,
+        maxFileCount: 10,
+        language: 'zh', //设置语言
+        uploadUrl: '/JiaoWu/batchAddStudents',
+        allowedFileExtensions: ['xlsx'],//接收的文件后缀
+        
+    });
+
+    $(document).ready(function () {
+       
+        $("#create-students").click(function () {
+            $("#student-modal").modal("show");
+        });
+
+    })
+
+</script>

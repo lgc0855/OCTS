@@ -81,6 +81,7 @@ namespace OCTS.Controllers
         public string batchAddStudents(HttpPostedFileBase file)
         {
             var severPath = this.Server.MapPath("/ExcelFiles/");
+            Directory.CreateDirectory(severPath);
             var savePath = Path.Combine(severPath, file.FileName);
             string result = "{}";
             try
@@ -181,11 +182,15 @@ namespace OCTS.Controllers
             }
             return result;
         }
-
+        public string Test()
+        {
+            return "";
+        }
 
         public string batchAddTeachers(HttpPostedFileBase file)
         {
             var severPath = this.Server.MapPath("/ExcelFiles/");
+            Directory.CreateDirectory(severPath);
             var savePath = Path.Combine(severPath, file.FileName);
             string result = "{}";
             try
@@ -274,7 +279,7 @@ namespace OCTS.Controllers
                 xls = null;
                 GC.Collect();//系统回收资源
                 System.IO.File.Delete(savePath);
-                result = "{}";
+                result = "{\"success\":\"成功导入\"}";
             }
             catch (Exception e)
             {
