@@ -1,136 +1,205 @@
-﻿
+﻿@model IEnumerable<OCTS.Models.User>
+
 @{
+    ViewBag.Title = "TeacherInfo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<html>
+
 <head>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/Content/css/fileinput.css" rel="stylesheet">
+    <link href="~/Content/fileinput.min.css" rel="stylesheet" />
 
 </head>
-<body>
+<style type="text/css">
+    h2 {
+        font-size: 36px;
+        text-align: center;
+    }
+</style>
+<button type="button" id="upper-level" class="btn btn-primary">返回上一级</button>
+<button type="button" id="add-folder" class="btn btn-primary">新建文件</button>
+<button type="button" id="createCourseInfo" class="btn btn-danger" onclick="location.href='#'">导入文件</button>
 
-    <div class="jumbotron" >
+<div class="jumbotron">
+    <div class="container">
         <div class="row">
-            <div class="col-lg-12 col-md-12">
-                <input id="file-1" type="file" data-preview-file-type="text" name="file">
+            <div id="folders" class="col-lg-12">
+
             </div>
         </div>
-
-
-
-        <div class="row" id="folders">
-         <!--<div class="col-lg-2 col-md-2">
-                <a href="#" class="thumbnail">
-                    <img src="~/Content/img/folder.png"  />
-                    <div class="caption text-center">Dr.</div>
-                </a>
-            </div>
-             -->   
-        </div>
-
     </div>
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/fileinput.min.js"></script>
-    <script>
-        $(document).on('ready', function () {
-            $("#file-1").fileinput({
-                language: 'zh', //设置语言
-                uploadUrl: "/Teacher/uploadFile",
-                allowedFileExtensions: ['xlsx'],//接收的文件后缀         
-                previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
-            });
-        })
-    </script>
+</div>
 
-    <script>
-
-        $(document).ready(function () {
-            $.get("/Teacher/getResources", function (data) {
-                //   alert(data);
-                data = eval(data);
-                var div;
-                var a;
-                var img;
-                for (var i = 0 ; i < data.length ; i++) {
-                    //var s = data[i].split("\\");
-                    createItem(data[i]);
-                    //  createItem(s[s.length-1])
-                    // console.log(s);
-                }
-            })
+<div id="teacher-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <input id="input-id" type="file" multiple data-preview-file-type="text" name="file">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 
-        /*    initFileInput("input-file", "");
-            //初始化fileinput控件（第一次初始化）
-            function initFileInput(ctrlName, uploadUrl) {
-                var control = $('#' + ctrlName);
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/fileinput.min.js"></script>
+<script src="~/Scripts/zh.js"></script>
 
-                control.fileinput({
-                    language: 'zh', //设置语言
-                    uploadUrl: uploadUrl, //上传的地址
-                    allowedFileExtensions: ['jpg', 'png', 'gif'],//接收的文件后缀
-                    showUpload: false, //是否显示上传按钮
-                    showCaption: false,//是否显示标题
-                    browseClass: "btn btn-primary", //按钮样式             
-                    previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
-                });
+<script>
+    $("#input-id").fileinput({
+        language: 'zh', //设置语言
+        uploadUrl: '/Teacher/uploadFiles',
+        overwriteInitial: false,
+        maxFileSize: 0,
+        maxFilesNum: 10,
+    });
+    $(document).ready(function () {
+
+        $("#createCourseInfo").click(function () {
+            $("#teacher-modal").modal("show");
+        });
+
+    })
+
+</script>
+
+<script>
+    var currentFolderPath=null;
+
+    function enterFolder(filepath) {
+        $("#folders").empty();
+        getResources(filepath)
+        // window.location.href = "/Teacher/EnterFolder?folderPath=" + folderPath;
+    }
+
+    function upperLevelFolder() {
+        $("#folders").empty();
+        if (currentFolderPath != null) {
+            var temp = currentFolderPath.split("/");
+            temp.pop();
+            currentFolderPath = temp.join("/");
+            console.log(currentFolderPath);
+        }
+        getResources(currentFolderPath);
+    }
+
+    function getResources(filepath) {
+        if (filepath != null) {
+            filepath = filepath.replace(/,/g, "/");
+            currentFolderPath = filepath;
+        }
+
+            var data = {
+                "folderPath": filepath
             }
-
-            */
-
-
-
-
-            function createItem(path) {
-                var s = path.split("\\");
-                var fileName = s[s.length - 1];
-                var div = document.createElement("div");
-                var a = document.createElement("a");
-                var img = document.createElement("img");
-                var subdiv = document.createElement("div");
-                subdiv.setAttribute("class", "caption text-center")
-                var node = document.createTextNode(s[s.length - 1]);
-                subdiv.appendChild(node);
-                div.setAttribute("class", "col-lg-2 col-md-2");
-                var temp = path.split("TeacherResource");
-                var filepath = "http://localhost:58546//" + "TeacherResource" + temp[temp.length - 1];
-                a.setAttribute("href", filepath);
-                a.setAttribute("download", fileName)
-                a.setAttribute("class", "thumbnail");
-                s = fileName.split(".");
-                switch (s[s.length - 1]) {
-                    case "xls":
-                    case "xlsx":
-                        img.setAttribute("src", "http://localhost:58546//Content/img/excel.png");
-                        break;
-                    case "jpg":
-                    case "png":
-                    case "jpeg":
-                    case "gif":
-                        img.setAttribute("src", "http://localhost:58546//Content/img/image.png");
-                        break;
-                    case "docx":
-                        img.setAttribute("src", "http://localhost:58546//Content/img/word.png");
-                        break;
-                    default:
-                        img.setAttribute("src", "http://localhost:58546//Content/img/folder.png");
-                }
-                a.appendChild(img);
-                a.appendChild(subdiv);
-                div.appendChild(a);
-
-                $("#folders").append(div);
-
+        
+        $.post("/Teacher/getResources" ,data , function (data) {
+            //   alert(data);
+            data = JSON.parse(data);
+            var div;
+            var a;
+            var img;
+            console.log(data);
+            console.log(data["files"]);
+            for (var i = 0 ; i < data["directories"].length ; i++) {
+                //var s = data[i].split("\\");
+                createFolderItem(data["directories"][i]);
+                //  createItem(s[s.length-1])
+                // console.log(s);
             }
+            for (var i = 0 ; i < data["files"].length ; i++) {
+                //var s = data[i].split("\\");
+                createFileItem(data["files"][i]);
+                //  createItem(s[s.length-1])
+                // console.log(s);
+            }
+        })
+    };
 
+    function createFolderItem(path) {
+        var s = path.split("\\");
+        var fileName = s[s.length - 1];
+        var div = document.createElement("div");
+        var button = document.createElement("button");
+        var img = document.createElement("img");
+        var subdiv = document.createElement("div");
+        subdiv.setAttribute("class", "caption text-center")
+        var node = document.createTextNode(s[s.length - 1]);
+        subdiv.appendChild(node);
+        div.setAttribute("class", "col-lg-2 col-md-2");
+        var temp = path.split("TeacherResource");
+        var filepath = temp[temp.length - 1];
+        //   a.setAttribute("href", filepath);
+        //   a.setAttribute("download", fileName)
+        var tempstring = filepath.split("\\");
+        tempstring = tempstring.join(",")
+        button.setAttribute("onclick", 'enterFolder("' + tempstring + '")');
+        button.setAttribute("class", "thumbnail");
+        img.setAttribute("src", "http://localhost:58546//Content/img/folder.png");
+        button.appendChild(img);
+        button.appendChild(subdiv);
+        div.appendChild(button);
 
+        $("#folders").append(div);
+
+    }
+
+    function createFileItem(path) {
+        var s = path.split("\\");
+        var fileName = s[s.length - 1];
+        var div = document.createElement("div");
+        var a = document.createElement("a");
+        var img = document.createElement("img");
+        var subdiv = document.createElement("div");
+        subdiv.setAttribute("class", "caption text-center")
+        var node = document.createTextNode(s[s.length - 1]);
+        subdiv.appendChild(node);
+        div.setAttribute("class", "col-lg-2 col-md-2");
+        var temp = path.split("TeacherResource");
+        var filepath = "http://localhost:58546//" + "TeacherResource" + temp[temp.length - 1];
+        a.setAttribute("href", filepath);
+        a.setAttribute("download", fileName)
+        a.setAttribute("class", "thumbnail");
+        s = fileName.split(".");
+        switch (s[s.length - 1]) {
+            case "xls":
+            case "xlsx":
+                img.setAttribute("src", "http://localhost:58546//Content/img/excel.png");
+                break;
+            case "jpg":
+            case "png":
+            case "jpeg":
+            case "gif":
+                img.setAttribute("src", "http://localhost:58546//Content/img/image.png");
+                break;
+            case "docx":
+                img.setAttribute("src", "http://localhost:58546//Content/img/word.png");
+                break;
+            default:
+                img.setAttribute("src", "http://localhost:58546//Content/img/default.png");
+        }
+        a.appendChild(img);
+        a.appendChild(subdiv);
+        div.appendChild(a);
+
+        $("#folders").append(div);
+
+    }
+
+    $(document).ready(function () {
+
+        getResources(null);
+        $("#upper-level").click(function () {
+            upperLevelFolder();
+        })
 
 
         })
-    </script>
-
-
-</body>
-</html>
+</script>

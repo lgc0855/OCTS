@@ -119,6 +119,9 @@ namespace OCTS.Controllers
                 int idcol = -1;
                 int idrow = -1;
                 int namecol = -1;
+                int sexcol = -1;
+                int emailcol = -1;
+                int phonecol = -1;
                 for (var i = 1; i <= row; i++)
                 {
                     for (var j = 1; j <= col; j++)
@@ -129,9 +132,21 @@ namespace OCTS.Controllers
                             idcol = j;
                             idrow = i;
                         }
-                        if (tempId.Equals("姓名"))
+                        else if (tempId.Equals("姓名"))
                         {
                             namecol = j;
+                        }
+                        else if (tempId.Equals("性别"))
+                        {
+                            sexcol = j;
+                        }
+                        else if (tempId.Equals("Email"))
+                        {
+                            emailcol = j;
+                        }
+                        else if (tempId.Equals("电话"))
+                        {
+                            phonecol = j;
                         }
                     }
 
@@ -153,6 +168,13 @@ namespace OCTS.Controllers
                         user.userId = tempId;
                         user.userName = tempName;
                         user.setUserType("student");
+                        if(emailcol!=-1)
+                        user.userEmail = ((Range)sheet.Cells[i, emailcol]).Text;
+                        if(phonecol!=-1)
+                        user.userPhone = ((Range)sheet.Cells[i, phonecol]).Text;
+                        if(sexcol!=-1)
+                            user.userSex = ((Range)sheet.Cells[i, sexcol]).Text;
+
                         user.userPassword = "8CB2237D0679CA88DB6464EAC60DA96345513964";
                         userdb.users.Add(user);
                     }
@@ -228,6 +250,9 @@ namespace OCTS.Controllers
                 int idcol = -1;
                 int idrow = -1;
                 int namecol = -1;
+                int sexcol = -1;
+                int emailcol = -1;
+                int phonecol = -1;
                 for (var i = 1; i <= row; i++)
                 {
                     for (var j = 1; j <= col; j++)
@@ -238,9 +263,21 @@ namespace OCTS.Controllers
                             idcol = j;
                             idrow = i;
                         }
-                        if (tempId.Equals("姓名"))
+                        else if (tempId.Equals("姓名"))
                         {
                             namecol = j;
+                        }
+                        else if (tempId.Equals("性别"))
+                        {
+                            sexcol = j;
+                        }
+                        else if (tempId.Equals("Email"))
+                        {
+                            emailcol = j;
+                        }
+                        else if (tempId.Equals("电话"))
+                        {
+                            phonecol = j;
                         }
                     }
 
@@ -262,6 +299,14 @@ namespace OCTS.Controllers
                         user.userId = tempId;
                         user.userName = tempName;
                         user.setUserType("teacher");
+
+                        if (emailcol != -1)
+                            user.userEmail = ((Range)sheet.Cells[i, emailcol]).Text;
+                        if (phonecol != -1)
+                            user.userPhone = ((Range)sheet.Cells[i, phonecol]).Text;
+                        if (sexcol != -1)
+                            user.userSex = ((Range)sheet.Cells[i, sexcol]).Text;
+
                         user.userPassword = "8CB2237D0679CA88DB6464EAC60DA96345513964";
                         userdb.users.Add(user);
                     }
@@ -287,7 +332,14 @@ namespace OCTS.Controllers
             }
             finally
             {
-                System.IO.File.Delete(savePath);
+                try
+                {
+                    System.IO.File.Delete(savePath);
+
+                }catch(Exception e)
+                {
+                    ;
+                }
             }
             return result;
         }

@@ -8,16 +8,18 @@ using System.Net;
 using System.Data.Entity;
 using System.Text.RegularExpressions;
 using System.Configuration;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace OCTS.Controllers
 {
     public class TeacherController : Controller
     {
         // GET: Teacher
-        
+        DBHelper dbHelper = DBHelper.getMyHelper();
         public ActionResult CourseInfo()
         {
-            DBHelper dbHelper = DBHelper.getMyHelper();
+
             //1.获取cookie和dbcontext
             HttpCookie accountCookie = Request.Cookies["Account"];
             List<TeacherCourse> TC = dbHelper.getTeacherCourses();
@@ -26,17 +28,17 @@ namespace OCTS.Controllers
             //待保存的课程列表
             List<Course> temp = new List<Course>();
             string s = accountCookie["userName"];
-            
-            foreach(TeacherCourse tc in TC)
+
+            foreach (TeacherCourse tc in TC)
             {
-                if(tc.userId == s)
+                if (tc.userId == s)
                 {
-                    foreach(Course c in C)
+                    foreach (Course c in C)
                     {
                         if (c.courseId == tc.courseId)
                         {
                             temp.Add(c);
-                        }    
+                        }
                     }
                 }
             }
@@ -87,7 +89,7 @@ namespace OCTS.Controllers
             }
             HttpCookie hc = new HttpCookie("course");
             hc["courseid"] = id;
-            hc["coursename"] = 
+            hc["coursename"] =
                 course.courseName;
             hc.Expires = DateTime.Now.AddDays(1);
             Response.Cookies.Add(hc);
@@ -105,7 +107,7 @@ namespace OCTS.Controllers
                 RedirectToAction("CourseInfo");
             List<TaskSubmit> ts = dbHelper.getTaskSubmits();
             List<TaskSubmit> temp = new List<TaskSubmit>();
-            foreach(TaskSubmit t in ts)
+            foreach (TaskSubmit t in ts)
             {
                 if (t.courseId == courseId)
                     temp.Add(t);
@@ -131,9 +133,9 @@ namespace OCTS.Controllers
             }
             return View();
         }
-        public ActionResult Dafen(string gid,string tid,DateTime st,string cid)
+        public ActionResult Dafen(string gid, string tid, DateTime st, string cid)
         {
-            if (tid == null||gid == null||cid == null)
+            if (tid == null || gid == null || cid == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -141,7 +143,7 @@ namespace OCTS.Controllers
             List<TaskSubmit> ts = dbHelper.getTaskSubmits();
             TaskSubmitDBContext cdb = new TaskSubmitDBContext();
             TaskSubmit ts1 = new TaskSubmit();
-            foreach(TaskSubmit ts2 in ts)
+            foreach (TaskSubmit ts2 in ts)
             {
                 if (ts2.groupId == gid && ts2.taskId == tid && ts2.submitTime.CompareTo(st) == 0 && ts2.courseId == cid)
                     ts1 = ts2;
@@ -177,24 +179,24 @@ namespace OCTS.Controllers
         public ActionResult UploadOutline(string courseID)
         {
             DBHelper dbHelper = DBHelper.getMyHelper();
-           // string attachFile = ConfigurationSettings.AppSettings["attachFile"].Trim();
+            // string attachFile = ConfigurationSettings.AppSettings["attachFile"].Trim();
             string showFileName = Request["UploadName"];
             System.Web.HttpPostedFileBase file = Request.Files["UploadFile"];
             //存入文件  
             if (file.ContentLength > 0)
             {
                 //先查看附件目录是否存在，不存在就创建，否则会报错 未找到路径。  
-             //   if (!System.IO.File.Exists(attachFile))
-               // {
-                    //这个是根据路径新建一个目录  
-                 //   System.IO.Directory.CreateDirectory(attachFile);
-                    //这个是根据路径新建一个文件,如果没有就会创建文件， 否则就会报错：对路径“...”的访问被拒绝。   
-                    //System.IO.File.Create(attachFile);  
+                //   if (!System.IO.File.Exists(attachFile))
+                // {
+                //这个是根据路径新建一个目录  
+                //   System.IO.Directory.CreateDirectory(attachFile);
+                //这个是根据路径新建一个文件,如果没有就会创建文件， 否则就会报错：对路径“...”的访问被拒绝。   
+                //System.IO.File.Create(attachFile);  
                 //}
                 //这个是上传到当前项目的目录下，和Views文件夹同级  
                 file.SaveAs(Server.MapPath("~/") + System.IO.Path.GetFileName(file.FileName));
                 //这个是上传到指定的目录下，必须指定具体的文件，不然会报错：对路径“...”的访问被拒绝。   
-               // file.SaveAs(attachFile + "\\" + System.IO.Path.GetFileName(showFileName));
+                // file.SaveAs(attachFile + "\\" + System.IO.Path.GetFileName(showFileName));
             }
             //ViewBag.Result = System.IO.Path.GetFileName(file.FileName) + " 上传成功！";
             dbHelper.addOutline(courseID, Server.MapPath("~/") + System.IO.Path.GetFileName(file.FileName));
@@ -210,12 +212,12 @@ namespace OCTS.Controllers
             if (file.ContentLength > 0)
             {
                 //先查看附件目录是否存在，不存在就创建，否则会报错 未找到路径。  
-              //  if (!System.IO.File.Exists(attachFile))
+                //  if (!System.IO.File.Exists(attachFile))
                 //{
-                    //这个是根据路径新建一个目录  
-                  //  System.IO.Directory.CreateDirectory(attachFile);
-                    //这个是根据路径新建一个文件,如果没有就会创建文件， 否则就会报错：对路径“...”的访问被拒绝。   
-                    //System.IO.File.Create(attachFile);  
+                //这个是根据路径新建一个目录  
+                //  System.IO.Directory.CreateDirectory(attachFile);
+                //这个是根据路径新建一个文件,如果没有就会创建文件， 否则就会报错：对路径“...”的访问被拒绝。   
+                //System.IO.File.Create(attachFile);  
                 //}
                 //这个是上传到当前项目的目录下，和Views文件夹同级  
                 file.SaveAs(Server.MapPath("~/") + System.IO.Path.GetFileName(file.FileName));
@@ -225,7 +227,7 @@ namespace OCTS.Controllers
             //ViewBag.Result = System.IO.Path.GetFileName(file.FileName) + " 上传成功！";
             dbHelper.addRequire(courseID, Server.MapPath("~/") + System.IO.Path.GetFileName(file.FileName));
             return RedirectToAction("EditCourseInfo", "Teacher", new { id = courseID });
-        } 
+        }
 
 
         /*
@@ -275,11 +277,11 @@ namespace OCTS.Controllers
 
         public ActionResult Index()
         {
-          
-           return RedirectToAction("CourseInfo");
+
+            return RedirectToAction("CourseInfo");
         }
 
-                //显示作业清单信息
+        //显示作业清单信息
         public ActionResult TaskListInfo()
         {
             //1.获取Cookie，从中提取课程id
@@ -291,9 +293,9 @@ namespace OCTS.Controllers
                 courseId = cookie["courseid"];
                 courseName = cookie["coursename"];
             }
-            if (courseId == null||courseName==null)
+            if (courseId == null || courseName == null)
             {
-               return RedirectToAction("CourseInfo");
+                return RedirectToAction("CourseInfo");
             }
 
             //2.根据课程id，获取全部作业清单tmplist
@@ -349,11 +351,13 @@ namespace OCTS.Controllers
                 }
                 if (userId == null)
                 {
-                     return RedirectToAction("Index","SecurityController");
+                    return RedirectToAction("Index", "SecurityController");
                 }
                 List<User> users = dbHelper.getUsers();
-                foreach( User u in users){
-                    if(u.userId == userId){
+                foreach (User u in users)
+                {
+                    if (u.userId == userId)
+                    {
                         task.taskSubmitter = u.userName;
                         break;
                     }
@@ -361,7 +365,7 @@ namespace OCTS.Controllers
                 TaskInformationDBContext db = new TaskInformationDBContext();
                 db.taskInformations.Add(task);
                 db.SaveChanges();
-                db=null;
+                db = null;
             }
             return RedirectToAction("TaskListInfo");
         }
@@ -397,7 +401,7 @@ namespace OCTS.Controllers
             return RedirectToAction("TaskListInfo");
         }
 
-        public ActionResult DeleteTaskInfo(string  id)
+        public ActionResult DeleteTaskInfo(string id)
         {
             TaskInformationDBContext db = new TaskInformationDBContext();
             int ID = Convert.ToInt32(id);
@@ -423,6 +427,70 @@ namespace OCTS.Controllers
             }
 
             return View(taskinformation);
+        }
+
+
+        public ActionResult ResourceManage()
+        {
+            return View();
+        }
+
+
+        public string uploadFiles(HttpPostedFileBase file)
+        {
+            try
+            {
+                HttpCookie cookie = Request.Cookies["Account"];
+                User u = dbHelper.findUser(cookie["userName"]);
+                var savePath = this.Server.MapPath("/TeacherResource/" + u.userName + "/" + file.FileName);
+                file.SaveAs(savePath);
+            }catch(Exception e)
+            {
+                return "{\"error\":\"在服务器端发生错误请联系管理员\"}";
+            }
+            return "{\"success\":\"\"}";
+        }
+
+
+
+        public string getResources( string folderPath)
+        {
+            string[] resultFile;
+            string[] resultDirectories;
+            HttpCookie cookie = Request.Cookies["Account"];
+            User u = dbHelper.findUser(cookie["userName"]);
+            if(folderPath == "")
+            {
+                folderPath ="/"+ u.userName;
+            }
+          /*  else
+            {
+                folderPath = folderPath.Replace(",", "/");
+            }
+            */
+            var severPath = this.Server.MapPath("/TeacherResource" + folderPath + "/");
+            Directory.CreateDirectory(severPath);
+            try
+            {
+                resultFile = Directory.GetFiles(severPath);
+                resultDirectories = Directory.GetDirectories(severPath);
+            }
+            catch (Exception e)
+            {
+                return "error";
+            }
+            TeacherResource resource = new TeacherResource();
+            resource.files = resultFile;
+            resource.directories = resultDirectories;
+            return JsonConvert.SerializeObject(resource);
+        }
+
+
+        private class TeacherResource
+        {
+            public string[] files { get; set; }
+            public string[] directories { get; set; }
+
         }
     }
 }
