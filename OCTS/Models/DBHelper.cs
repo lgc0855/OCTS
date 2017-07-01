@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web;
+using System.IO.Compression;
+
 
 namespace OCTS.Models
 {
@@ -101,6 +103,52 @@ namespace OCTS.Models
             groupdb = null;
             return groups;
         }
+
+        //查找某课程的group
+        public List<Group> getGroups(string courseId)
+        {
+            GroupDBContext gdb = new GroupDBContext();
+            List<Group> gList = gdb.groups.ToList();
+            List<Group> result = new List<Group>();
+            foreach(Group g in gList)
+            {
+                if(g.courseId == courseId)
+                {
+                    result.Add(g);
+                }
+            }
+            return result;
+        }
+
+
+        //查找某个小组的成员
+        public List<User> getGroupMembers( string groupId)
+        {
+            UserCourseDBContext ucdb = new UserCourseDBContext();
+            List<UserCourse> list = ucdb.userCourses.ToList();
+            List<UserCourse> tempList = ucdb.userCourses.ToList();
+            List<User> resultList = new List<User>();
+            foreach(UserCourse u in list)
+            {
+                if(u.groupId == groupId)
+                {
+                    tempList.Add(u);
+                }
+            }
+            foreach(UserCourse uc in tempList)
+            {
+                User u = findUser(uc.userId);
+                if(u!=null)
+                {
+                    resultList.Add(u);
+                }
+            }
+            ucdb = null;
+            return resultList;
+
+
+        }
+
         public List<TaskSubmit> getTaskSubmits()
         {
             TaskSubmitDBContext tasksubmitdb = new TaskSubmitDBContext();
@@ -305,6 +353,27 @@ namespace OCTS.Models
             int num = db.SaveChanges();
             db = null;
         }
+
+
+        //寻找课程
+        public Course findCourse(string courseId)
+        {
+            CourseDBContext cdb = new CourseDBContext();
+            List<Course> list = cdb.courses.ToList();
+            foreach(Course c in list)
+            {
+                if(c.courseId == courseId)
+                {
+                    return c;
+                }
+            }
+            return null;
+        }
+
+
+
+
+
     }
 
    

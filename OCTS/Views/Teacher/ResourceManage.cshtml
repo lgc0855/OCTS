@@ -38,7 +38,7 @@
                 <h4 class="modal-title" id="gridSystemModalLabel">Modal title</h4>
             </div>
             <div class="modal-body">
-                <input id="input-id" type="file" multiple data-preview-file-type="text" name="file">
+                <input id="input-id" type="file" multiple data-preview-file-type="text"  name="file">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -53,25 +53,17 @@
 <script src="~/Scripts/zh.js"></script>
 
 <script>
-    $("#input-id").fileinput({
-        language: 'zh', //设置语言
-        uploadUrl: '/Teacher/uploadFiles',
-        overwriteInitial: false,
-        maxFileSize: 0,
-        maxFilesNum: 10,
-    });
+    
     $(document).ready(function () {
 
-        $("#createCourseInfo").click(function () {
-            $("#teacher-modal").modal("show");
-        });
+        
 
     })
 
 </script>
 
 <script>
-    var currentFolderPath=null;
+    var currentFolderPath= null;
 
     function enterFolder(filepath) {
         $("#folders").empty();
@@ -95,7 +87,6 @@
             filepath = filepath.replace(/,/g, "/");
             currentFolderPath = filepath;
         }
-
             var data = {
                 "folderPath": filepath
             }
@@ -193,7 +184,21 @@
 
     }
 
+
+
     $(document).ready(function () {
+
+        $("#createCourseInfo").click(function () {
+            $("#input-id").fileinput({
+                language: 'zh', //设置语言
+                uploadUrl: '/Teacher/uploadFiles',
+                overwriteInitial: false,
+                maxFileSize: 0,
+                maxFilesNum: 10,
+                uploadExtraData: { path: currentFolderPath }
+            });
+            $("#teacher-modal").modal("show");
+        });
 
         getResources(null);
         $("#upper-level").click(function () {

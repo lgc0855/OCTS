@@ -1,0 +1,141 @@
+﻿@model IEnumerable<OCTS.Models.Course>
+
+@{
+    ViewBag.Title = "CourseInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <link href="~/Content/bootstrap-table.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table-click-edit-row.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css">
+</head>
+<style type="text/css">
+    h2 {
+        font-size: 36px;
+        text-align: center;
+    }
+</style>
+<div>
+    <h2>课程信息表</h2> 
+    <button id="download-zip" href="#">打包下载</button>
+    <a id="download" download="a.zip">下载链接</a>
+</div>
+<div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">教师表</div>
+                <div class="panel-body">
+                    <div id="toolbar1" class="btn-group">
+                        <button id="btn_add_teacher" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>格式化表格
+                        </button>
+                        <button id="btn-batchAdd-teachers" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-import" aria-hidden="true"></span>批量导入
+                        </button>
+                        <button id="btn_edit" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
+                        </button>
+                        <button id="btn_delete_teachers" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+                        </button>
+                    </div>
+                    @{
+                        var num = ViewData["MaxGroupNum"];
+                        if(num==null || int.Parse(num.ToString())  <= 0)
+                        {
+                            num = 1;
+                        }
+                        <table id="teacher-table" data-url="/Teacher/getGroupInfo" data-toggle="table" data-detail-view="true"   data-striped="true" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc" data-show-export="true">
+                            <thead>
+                                <tr>
+                                    <th data-field="state" data-checkbox="true">groupId </th>
+                                    <th data-field="groupId" data-sortable="true">组序号</th>
+                                    <th data-field="groupName" data-sortable="true">组名称</th>
+                                    <th data-field="groupState" data-sortable="true">组状态</th>
+                                    <th data-field="id" data-sortable="true">学号</th>
+                                    <th data-field="name" data-sortable="true">姓名</th>
+                                    <th data-field="sex" data-sortable="true">性别</th>
+                                    <th data-formatter="operateFormatter" data-align='center' data-events='operateEvents'>操作</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    }
+                    
+                </div>
+            </div>
+        </div>
+    </div><!--/.row-->
+
+</div>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/my_add/bootstrap-table.js"></script>
+<script src="~/Scripts/my_add/bootstrap-table-export.js"></script>
+<script src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
+
+<script>
+   /* function a() {
+        console.log(data);
+    }
+    var $table = $('#teacher-table');
+    $(function () {
+        $table.on('post-body.bs.table', function () {
+            $table.bootstrapTable('mergeCells', {
+                index: 0,
+                field: 'picture',
+                rowspan: 12
+            });
+        });
+    });
+    */
+
+    
+    $(document).ready(function () {
+        var $table = $('#teacher-table');
+        alert()
+
+        $("#download-zip").click(function () {
+            $.get("/Teacher/downloadZip", function (data) {
+                var url = window.location.href;
+                var arrUrl = url.split("//");
+
+                var start = arrUrl[1].split("/");
+                var relUrl = arrUrl[0] + "//" + start[0];
+                console.log(arrUrl[0]);
+                console.log(data);
+                console.log(relUrl);
+                $("#download").attr("href", relUrl + data);
+                document.getElementById("download")[0].click();
+            })
+        })
+        
+
+
+        $("#btn_add_teacher").click(function () {
+             $.get("/Teacher/getGroupInfo", function (data) {
+                 //alert("dcfdv");
+                 var tabledata = JSON.parse(data);
+                 console.log(tabledata);
+                 var index = 0 ;
+                 var num = 1;
+                 for (var i = 1 ; i < tabledata.length ; i++) {
+                     if (tabledata[i].groupId == tabledata[i - 1].groupId) {
+                         console.log(num);
+                         num++;
+                     } else {
+                         $('#teacher-table').bootstrapTable('mergeCells', { index: index, field: 'groupId', colspan: 1, rowspan: num });
+                         $('#teacher-table').bootstrapTable('mergeCells', { index: index, field: 'groupName', colspan: 1, rowspan: num });
+                         $('#teacher-table').bootstrapTable('mergeCells', { index: index, field: 'groupState', colspan: 1, rowspan: num });
+                         index += num;
+                         num = 0;
+                     }
+                 }
+
+                 $('#teacher-table').bootstrapTable('mergeCells', { index: index, field: 'groupId', colspan: 1, rowspan: num });
+                 $('#teacher-table').bootstrapTable('mergeCells', { index: index, field: 'groupName', colspan: 1, rowspan: num });
+                 $('#teacher-table').bootstrapTable('mergeCells', { index: index, field: 'groupState', colspan: 1, rowspan: num });
+                 
+             })
+        })
+    })
+</script>

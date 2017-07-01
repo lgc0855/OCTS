@@ -1,0 +1,137 @@
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<html>
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/css/fileinput.css" rel="stylesheet">
+
+</head>
+<body>
+
+    <div class="jumbotron" >
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+            </div>
+        </div>
+
+
+
+        <div class="row" id="folders">
+         <!--<div class="col-lg-2 col-md-2">
+                <a href="#" class="thumbnail">
+                    <img src="~/Content/img/folder.png"  />
+                    <div class="caption text-center">Dr.</div>
+                </a>
+            </div>
+             -->   
+        </div>
+
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/fileinput.min.js"></script>
+    <script>
+        $(document).on('ready', function () {
+            $("#file-1").fileinput({
+                language: 'zh', //设置语言
+                uploadUrl: "/Teacher/uploadFile",
+                allowedFileExtensions: ['xlsx'],//接收的文件后缀         
+                previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+            });
+        })
+    </script>
+
+    <script>
+
+        $(document).ready(function () {
+            $.get("/Teacher/getResources", function (data) {
+                //   alert(data);
+                data = eval(data);
+                var div;
+                var a;
+                var img;
+                for (var i = 0 ; i < data.length ; i++) {
+                    //var s = data[i].split("\\");
+                    createItem(data[i]);
+                    //  createItem(s[s.length-1])
+                    // console.log(s);
+                }
+            })
+
+
+        /*    initFileInput("input-file", "");
+            //初始化fileinput控件（第一次初始化）
+            function initFileInput(ctrlName, uploadUrl) {
+                var control = $('#' + ctrlName);
+
+                control.fileinput({
+                    language: 'zh', //设置语言
+                    uploadUrl: uploadUrl, //上传的地址
+                    allowedFileExtensions: ['jpg', 'png', 'gif'],//接收的文件后缀
+                    showUpload: false, //是否显示上传按钮
+                    showCaption: false,//是否显示标题
+                    browseClass: "btn btn-primary", //按钮样式             
+                    previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+                });
+            }
+
+            */
+
+
+
+
+            function createItem(path) {
+                var s = path.split("\\");
+                var fileName = s[s.length - 1];
+                var div = document.createElement("div");
+                var a = document.createElement("a");
+                var img = document.createElement("img");
+                var subdiv = document.createElement("div");
+                subdiv.setAttribute("class", "caption text-center")
+                var node = document.createTextNode(s[s.length - 1]);
+                subdiv.appendChild(node);
+                div.setAttribute("class", "col-lg-2 col-md-2");
+                var temp = path.split("TeacherResource");
+                var filepath = "http://localhost:58546//" + "TeacherResource" + temp[temp.length - 1];
+                a.setAttribute("href", filepath);
+                a.setAttribute("download", fileName)
+                a.setAttribute("class", "thumbnail");
+                s = fileName.split(".");
+                switch (s[s.length - 1]) {
+                    case "xls":
+                    case "xlsx":
+                        img.setAttribute("src", "http://localhost:58546//Content/img/excel.png");
+                        break;
+                    case "jpg":
+                    case "png":
+                    case "jpeg":
+                    case "gif":
+                        img.setAttribute("src", "http://localhost:58546//Content/img/image.png");
+                        break;
+                    case "docx":
+                        img.setAttribute("src", "http://localhost:58546//Content/img/word.png");
+                        break;
+                    default:
+                        img.setAttribute("src", "http://localhost:58546//Content/img/folder.png");
+                }
+                a.appendChild(img);
+                a.appendChild(subdiv);
+                div.appendChild(a);
+
+                $("#folders").append(div);
+
+            }
+
+
+
+
+        })
+    </script>
+
+
+</body>
+</html>
+
+",李国超,C++"

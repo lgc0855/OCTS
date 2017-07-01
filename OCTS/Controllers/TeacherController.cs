@@ -17,6 +17,7 @@ namespace OCTS.Controllers
     {
         // GET: Teacher
         DBHelper dbHelper = DBHelper.getMyHelper();
+        string upFilePath;
         public ActionResult CourseInfo()
         {
 
@@ -436,15 +437,65 @@ namespace OCTS.Controllers
         }
 
 
-        public string uploadFiles(HttpPostedFileBase file)
+        public ActionResult GroupDetial()
         {
+            ViewData["MaxGroupNum"] = 4;
+            ViewData["CourseId"] = "123";
+            return View();
+        }
+
+        public string getGroupInfo()
+        {
+            // num 和 CourseId 应在存在Cookie中并取出赋值
+            int num = 4;
+            string CourseId = "123";
+            List<GroupInfo> resultList = new List<GroupInfo>();
+            GroupInfo info = null;
+            List<User> userOfCourse = null;
+            List<OCTS.Models.Group> gList = dbHelper.getGroups(CourseId);
+            foreach(Models.Group g in gList)
+            {
+                userOfCourse = dbHelper.getGroupMembers(g.groupId);
+                foreach (User u in userOfCourse)
+                {
+                    info = new GroupInfo();
+                    info.groupId = g.groupId;
+                    info.groupName = g.groupName;
+                    info.groupState = g.groupState.ToString();
+                    info.id = u.userId;
+                    info.name = u.userName;
+                    info.sex = u.userSex;
+                    resultList.Add(info);
+                }
+               
+            }
+
+
+            string result = JsonConvert.SerializeObject(resultList);
+            return result;
+
+        }
+
+        public string uploadFiles(HttpPostedFileBase file, string path)
+        {
+
+            string savePath = "";
             try
             {
+
                 HttpCookie cookie = Request.Cookies["Account"];
                 User u = dbHelper.findUser(cookie["userName"]);
-                var savePath = this.Server.MapPath("/TeacherResource/" + u.userName + "/" + file.FileName);
+                if (upFilePath == "")
+                {
+                    savePath = this.Server.MapPath("/TeacherResource/" + u.userName + "/" + file.FileName);
+
+                }
+                else
+                {
+                    savePath = savePath = this.Server.MapPath("/TeacherResource" + path + "/" + file.FileName); ;
+                }
                 file.SaveAs(savePath);
-            }catch(Exception e)
+            } catch (Exception e)
             {
                 return "{\"error\":\"在服务器端发生错误请联系管理员\"}";
             }
@@ -453,22 +504,23 @@ namespace OCTS.Controllers
 
 
 
-        public string getResources( string folderPath)
+        public string getResources(string folderPath)
         {
             string[] resultFile;
             string[] resultDirectories;
             HttpCookie cookie = Request.Cookies["Account"];
             User u = dbHelper.findUser(cookie["userName"]);
-            if(folderPath == "")
+            if (folderPath == "")
             {
-                folderPath ="/"+ u.userName;
+                folderPath = "/" + u.userName;
             }
-          /*  else
-            {
-                folderPath = folderPath.Replace(",", "/");
-            }
-            */
+            /*  else
+              {
+                  folderPath = folderPath.Replace(",", "/");
+              }
+              */
             var severPath = this.Server.MapPath("/TeacherResource" + folderPath + "/");
+            upFilePath = severPath;
             Directory.CreateDirectory(severPath);
             try
             {
@@ -485,12 +537,30 @@ namespace OCTS.Controllers
             return JsonConvert.SerializeObject(resource);
         }
 
+        public string downloadZip()
+        {
+            string sourceFilePath = this.Server.MapPath("/TeacherResource/李国超");
+            string destinationZipFilePath = this.Server.MapPath("/TeacherResource/a.zip");
+            ZipHelper.CreateZip(@sourceFilePath, @destinationZipFilePath);
+            return "/TeacherResource/a.zip";
+        }
+
 
         private class TeacherResource
         {
             public string[] files { get; set; }
             public string[] directories { get; set; }
 
+        }
+
+        private class GroupInfo
+        {
+            public string groupId { get; set; }
+            public string groupName { get; set; }
+            public string groupState { get; set; }
+            public string id { get; set; }
+            public string name { get; set; }
+            public string sex { get; set; }
         }
     }
 }

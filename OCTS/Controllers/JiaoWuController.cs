@@ -11,6 +11,7 @@ using Microsoft.Office.Interop.Excel;
 using System.Web.Security;
 using System.Net;
 using System.Data.Entity;
+using Newtonsoft.Json;
 
 namespace OCTS.Controllers
 {
@@ -686,6 +687,17 @@ namespace OCTS.Controllers
             db.users.Remove(user);
             db.SaveChanges();
             return RedirectToAction("TeacherInfo");
+        }
+
+
+        public string getCourses()
+        {
+            List<Course> list = dbHelper.getCourses();
+            dbHelper.getCourses();
+            dbHelper.getGroups();
+
+            string s = JsonConvert.SerializeObject(list);
+            return s;
         }
     }
 }

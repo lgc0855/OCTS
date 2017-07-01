@@ -200,3 +200,4 @@ C:\安装包\OCTS\OCTS\bin\zh-Hans\Microsoft.Owin.Security.MicrosoftAccount.reso
 C:\安装包\OCTS\OCTS\obj\Debug\OCTS.dll
 C:\安装包\OCTS\OCTS\obj\Debug\OCTS.pdb
 C:\安装包\OCTS\OCTS\obj\Debug\OCTS.csprojResolveAssemblyReference.cache
+C:\安装包\OCTS\OCTS\bin\ICSharpCode.SharpZipLib.dll
